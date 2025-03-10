@@ -32,6 +32,6 @@ Route::get('/detailjasa/{id_jasa}', [JasaController::class, 'detailJasa'])->name
 //     return view('pelanggan.home');
 // });
 //pelanggan
-Route::get('/', [JasaController::class, 'tampilJasaHome'])->name('jasa.jasahome');
+Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasahome');
 Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
 

@@ -89,9 +89,4 @@ public function perbaruiJasa(Request $request, $id_jasa)
     return redirect()->route('jasa.datajasa')->with('success', 'Jasa berhasil diperbarui!');
 }
 
-public function tampilJasaHome(Request $request){
-    $jasahome = Jasa::all();
-    return view('pelanggan.home', compact('jasahome'));
-}
-
 }
