@@ -34,4 +34,5 @@ Route::get('/detailjasa/{id_jasa}', [JasaController::class, 'detailJasa'])->name
 //pelanggan
 Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasahome');
 Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
+Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');
 

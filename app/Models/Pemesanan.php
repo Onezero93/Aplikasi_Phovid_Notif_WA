@@ -12,13 +12,9 @@ class Pemesanan extends Model
     protected $table = 'pemesanan';
 
     protected $primaryKey = 'id_pemesanan';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
 
     protected $fillable = [
+        'id_jasa', // Tambahkan id_jasa di sini
         'namapelanggan',
         'alamat',
         'nomorwa',
@@ -29,9 +25,14 @@ class Pemesanan extends Model
         'sisapembayaran',
         'totalharga',
         'statuspemesanan',
-        'gambuktipembayaran',
+        'gambarbuktipembayaran',
     ];
 
     public $timestamps = false;
 
+    // Definisi relasi ke model Jasa
+    public function jasa()
+    {
+        return $this->belongsTo(Jasa::class, 'id_jasa', 'id_jasa');
+    }
 }
