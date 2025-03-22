@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JasaController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,12 @@ use App\Http\Controllers\PelangganController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/log', [LoginController::class, 'login'])->name('login.store');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::get('/datapengguna', [UserController::class, 'tampilData'])->name('pengguna.datapengguna');
 Route::post('/tambahdatapengguna', [UserController::class, 'tambahData'])->name('pengguna.tambah');
 Route::put('/perbaruipengguna/{id_user}', [UserController::class, 'perbaruiData'])->name('pengguna.perbarui');
@@ -28,11 +35,11 @@ Route::post('/perbaruijasa/{id_jasa}', [JasaController::class, 'perbaruiJasa'])-
 Route::get('/editjasa/{id_jasa}', [JasaController::class, 'editJasa'])->name('jasa.edit');
 Route::get('/detailjasa/{id_jasa}', [JasaController::class, 'detailJasa'])->name('jasa.detail');
 
-// Route::get('/', function () {
-//     return view('pelanggan.home');
+// Route::get('/login', function () {
+//     return view('auth.login');
 // });
-//pelanggan
 Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasahome');
 Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
 Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');
+
 

@@ -17,13 +17,13 @@
             <i class="material-symbols-rounded opacity-5">receipt_long</i>
             <span class="nav-link-text ms-1">Billing</span>
           </a>
-        </li>
+        </li>--}}
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/virtual-reality.html">
-            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
-          </a>
-        </li> --}}
+            <a class="nav-link text-dark" href="">
+              <i class="material-symbols-rounded opacity-5">work</i>
+              <span class="nav-link-text ms-1">Data Orderan Jasa</span>
+            </a>
+          </li>
         <li class="nav-item">
           <a class="nav-link text-dark{{ request()->is('datajasa') ? 'active bg-gradient-dark text-white' : '' }}" href="{{ url('/datajasa') }}">
             <i class="material-symbols-rounded opacity-5">box</i>
@@ -38,6 +38,6 @@
                 <i class="material-symbols-rounded opacity-5">person</i>
                 <span class="nav-link-text ms-1">Data Pengguna</span>
             </a>
-        </li>        
+        </li>
       </ul>
 </div>

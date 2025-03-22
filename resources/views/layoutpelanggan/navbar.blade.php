@@ -13,16 +13,9 @@
                 <a class="nav-link text-white" href="tentang.html">Tentang</a>
             </li>
         </ul>
-        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
-                <label class="form-label">Type here...</label>
-                <input type="text" class="form-control">
-            </div>
-        </div>
         <ul class="navbar-nav d-flex align-items-center  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-                <a class="btn bg-gradient-danger w-100 mb-0 toast-btn" target="_blank"
-                    href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Login</a>
+                <a class="btn bg-gradient-danger w-100 mb-0 toast-btn {{ request()->is('login')}}" href="{{ url('/login') }}" target="_blank">Login</a>
             </li>
         </ul>
     </div>
