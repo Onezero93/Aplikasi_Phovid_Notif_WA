@@ -24905,8 +24905,11 @@ hr.horizontal.gray-light {
 
 .navbar-vertical .navbar-brand>img,
 .navbar-vertical .navbar-brand-img {
-  max-width: 100%;
-  max-height: 2rem;
+  width: auto;
+  height: auto;
+  max-width: 70px; /* Sesuaikan sesuai kebutuhan */
+  max-height: 70px;
+  object-fit: contain; /* Menjaga rasio gambar tanpa crop */
 }
 
 .navbar-vertical .navbar-nav .nav-link {
@@ -29175,6 +29178,18 @@ pre[class*=language-] {
     100% { transform: rotate(360deg); }
 }
 
+.modal {
+    z-index: 1055 !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+
+#sidenav-main {
+    z-index: 1040 !important; /* Pastikan sidebar tetap berada di bawah modal */
+}
 
 
 /*# sourceMappingURL=dashboard-free.css.map */

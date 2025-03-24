@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\JasaController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RekeningController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,19 +23,25 @@ Route::post('/log', [LoginController::class, 'login'])->name('login.store');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+//datapengguna
 Route::get('/datapengguna', [UserController::class, 'tampilData'])->name('pengguna.datapengguna');
 Route::post('/tambahdatapengguna', [UserController::class, 'tambahData'])->name('pengguna.tambah');
 Route::put('/perbaruipengguna/{id_user}', [UserController::class, 'perbaruiData'])->name('pengguna.perbarui');
-Route::get('/editpengguna/{id_user}', [UserController::class, 'edit'])->name('pengguna.edit');
+// Route::get('/editpengguna/{id_user}', [UserController::class, 'edit'])->name('pengguna.edit');
 Route::delete('/hapuspengguna/{id_user}', [UserController::class, 'hapusData'])->name('pengguna.hapus');
 
 //jasa
 Route::get('/datajasa', [JasaController::class, 'tampilJasa'])->name('jasa.datajasa');
 Route::post('/tambahdatajasa', [JasaController::class, 'tambahJasa'])->name('jasa.tambah');
 Route::post('/perbaruijasa/{id_jasa}', [JasaController::class, 'perbaruiJasa'])->name('jasa.perbarui');
-Route::get('/editjasa/{id_jasa}', [JasaController::class, 'editJasa'])->name('jasa.edit');
 Route::get('/detailjasa/{id_jasa}', [JasaController::class, 'detailJasa'])->name('jasa.detail');
+Route::delete('/hapusjasa/{id_jasa}', [JasaController::class, 'hapusDataJasa'])->name('jasa.hapus');
 
+//rekenig
+Route::get('/datarekening', [RekeningController::class, 'tampilRekening'])->name('rekening.datarekening');
+Route::post('/tambahrekening', [RekeningController::class, 'tambahRekening'])->name('rekening.tambah');
+Route::put('/perbaruirekening/{id_rekening}', [RekeningController::class, 'perbaruiDataRekening'])->name('rekening.perbarui');
+Route::delete('/hapusrekening/{id_rekening}', [RekeningController::class, 'hapusDataRekening'])->name('rekening.hapus');
 // Route::get('/login', function () {
 //     return view('auth.login');
 // });

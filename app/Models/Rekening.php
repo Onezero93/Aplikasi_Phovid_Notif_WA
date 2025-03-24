@@ -17,7 +17,7 @@ class Rekening extends Model
      */
     protected $fillable = [
         'namabang',
-        'nomerbang',
+        'nomorrek',
     ];
 
     public $timestamps = false;

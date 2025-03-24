@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Jasa;
+use Illuminate\Support\Facades\File;
 
 class JasaController extends Controller
 {
@@ -48,11 +49,6 @@ class JasaController extends Controller
 }
 
 
-public function editJasa($id_jasa)
-{
-    $jasa = Jasa::findOrFail($id_jasa);
-    return view('jasa.perbaruijasa', compact('jasa'));
-}
 
 public function perbaruiJasa(Request $request, $id_jasa)
 {
@@ -87,6 +83,23 @@ public function perbaruiJasa(Request $request, $id_jasa)
     ]);
 
     return redirect()->route('jasa.datajasa')->with('success', 'Jasa berhasil diperbarui!');
+}
+
+public function hapusDataJasa(string $id)
+{
+    $jasa = Jasa::find($id);
+
+    if (!$jasa) {
+        return redirect()->route('jasa.datajasa')->with('error', 'Data tidak ditemukan!');
+    }
+
+    if ($jasa->gambar && File::exists(public_path($jasa->gambar))) {
+        File::delete(public_path($jasa->gambar));
+    }
+
+    $jasa->delete();
+
+    return redirect()->route('jasa.datajasa')->with('success', 'Jasa berhasil dihapus!');
 }
 
 }
