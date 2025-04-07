@@ -15,6 +15,7 @@ class RekeningController extends Controller
 
     public function tambahRekening(Request $request){
         $request->validate([
+            'namapemilik' => 'required|string|max:255',
             'namabang' => 'required|string|max:255',
             'nomorrek' => 'required|string|max:255',
 
@@ -22,6 +23,7 @@ class RekeningController extends Controller
         ]);
 
         Rekening::create([
+            'namapemilik' => $request->namapemilik,
             'namabang' => $request->namabang,
             'nomorrek' => $request->nomorrek,
 
@@ -35,11 +37,12 @@ class RekeningController extends Controller
     $rekening = Rekening::findOrFail($id_rekening);
 
     $request->validate([
+        'namapemilik' => 'required|string|max:255',
         'namabang' => 'required|string|max:255',
         'nomorrek' => 'required|string|max:255',
     ]);
 
-    $rekening->update($request->only(['namabang', 'nomorrek']));
+    $rekening->update($request->only(['namabang', 'nomorrek','namapemilik']));
 
     return redirect()->route('rekening.datarekening')->with('success', 'Pengguna berhasil diperbarui!');
 }

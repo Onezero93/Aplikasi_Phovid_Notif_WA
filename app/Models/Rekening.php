@@ -16,6 +16,7 @@ class Rekening extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'namapemilik',
         'namabang',
         'nomorrek',
     ];

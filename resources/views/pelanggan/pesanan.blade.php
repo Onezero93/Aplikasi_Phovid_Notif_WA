@@ -79,9 +79,11 @@
                         <input type="number" class="border-radius-lg text-sm w-100 px-3 py-2" id="sisapembayaran"
                             name="sisapembayaran" readonly>
                     </div>
-                    <div class="mb-3 text-center">
+                    <input type="hidden" id="statuspemesanan" name="statuspemesanan" value="Proses">
+                    <div class="mb-3 d-flex justify-content-center">
                         <button type="button" class="btn btn-primary" id="bayarSekarang">Bayar Sekarang</button>
                     </div>
+
                     <div id="buktiPembayaranSection" style="display: none;">
                         <div class="mb-3 text-center">
                             <label for="buktibayar" class="form-label d-block">Bukti Pembayaran</label>
@@ -95,6 +97,50 @@
                     </div>
                     <button type="submit" class="btn btn-success">Kirim Pesanan</button>
                 </form>
+                <!-- Modal Konfirmasi -->
+                <div class="modal fade" id="modalKonfirmasi" tabindex="-1" aria-labelledby="modalKonfirmasiLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalKonfirmasiLabel">Konfirmasi Pembayaran</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Nama:</strong> <span id="konfNama"></span></p>
+                                <p><strong>WhatsApp:</strong> <span id="konfWA"></span></p>
+                                <p><strong>Jadwal:</strong> <span id="konfJadwal"></span></p>
+                                <p><strong>Alamat:</strong> <span id="konfAlamat"></span></p>
+                                <p><strong>Tipe Pembayaran:</strong> <span id="konfTipePembayaran"></span></p>
+                                <p><strong>Metode Pembayaran:</strong> <span id="konfMetodePembayaran"></span></p>
+                                <p><strong>Jumlah DP:</strong> <span id="konfDP"></span></p>
+                                <p><strong>Total Harga:</strong> <span id="konfTotal"></span></p>
+                                <p><strong>Sisa Pembayaran:</strong> <span id="konfSisa"></span></p>
+                                <hr>
+                                <h5>Informasi Rekening Transfer</h5>
+                                @foreach ($rekenings as $rekening)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="rekening"
+                                            id="rekening{{ $rekening->id_rekening }}"
+                                            value="{{ $rekening->id_rekening }}">
+                                        <label class="form-check-label" for="rekening{{ $rekening->id_rekening }}">
+                                            {{ $rekening->namabang }} - {{ $rekening->nomorrek }} -
+                                            {{ $rekening->namapemilik }}
+                                        </label>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-primary" id="tombolKomplit">Komplit</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <script>
@@ -222,6 +268,120 @@
                     buktiPembayaranInput.required = true;
                 });
 
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const bayarSekarangButton = document.getElementById("bayarSekarang");
+                const tombolKomplit = document.getElementById("tombolKomplit");
+
+                bayarSekarangButton.addEventListener("click", function() {
+                    // Ambil nilai dari inputan
+                    document.getElementById("konfNama").innerText = document.getElementById("namapelanggan")
+                        .value;
+                    document.getElementById("konfWA").innerText = document.getElementById("nomorwa").value;
+                    document.getElementById("konfJadwal").innerText = document.getElementById(
+                        "jadwalpemotretan").value;
+                    document.getElementById("konfAlamat").innerText = document.getElementById("alamat").value;
+
+                    const tipePembayaran = document.querySelector("input[name='tipepembayaran']:checked");
+                    const metodePembayaran = document.querySelector("input[name='metodepembayaran']:checked");
+                    const jumlahDP = document.getElementById("jumlahdp").value || "-";
+                    const totalHarga = document.getElementById("totalharga").value;
+                    const sisa = document.getElementById("sisapembayaran").value;
+
+                    document.getElementById("konfTipePembayaran").innerText = tipePembayaran ? tipePembayaran
+                        .value : "-";
+                    document.getElementById("konfMetodePembayaran").innerText = metodePembayaran ?
+                        metodePembayaran.value : "-";
+                    document.getElementById("konfDP").innerText = jumlahDP;
+                    document.getElementById("konfTotal").innerText = totalHarga;
+                    document.getElementById("konfSisa").innerText = sisa;
+
+                    const modal = new bootstrap.Modal(document.getElementById("modalKonfirmasi"));
+                    modal.show();
+                });
+
+                tombolKomplit.addEventListener("click", function() {
+                    alert("Data berhasil dikonfirmasi!");
+
+                    // Tampilkan input gambar bukti pembayaran
+                    document.getElementById("buktiPembayaranSection").style.display = "block";
+
+                    // Sembunyikan tombol Bayar Sekarang
+                    document.getElementById("bayarSekarang").style.display = "none";
+
+                    // Tutup modal
+                    const modalElement = document.getElementById("modalKonfirmasi");
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                    modalInstance.hide();
+                });
+
+            });
+
+
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const form = document.getElementById("pesanForm");
+                const bayarSekarangButton = document.getElementById("bayarSekarang");
+
+                const requiredFields = [
+                    "namapelanggan",
+                    "nomorwa",
+                    "jadwalpemotretan",
+                    "alamat",
+                    "totalharga"
+                ];
+
+                const tipePembayaranRadios = document.querySelectorAll("input[name='tipepembayaran']");
+                const metodePembayaranRadios = document.querySelectorAll("input[name='metodepembayaran']");
+
+                function isRadioChecked(radioNodeList) {
+                    return Array.from(radioNodeList).some(radio => radio.checked);
+                }
+
+                function checkFormValidity() {
+                    let isValid = true;
+
+                    // Cek semua inputan teks
+                    requiredFields.forEach(id => {
+                        const field = document.getElementById(id);
+                        if (!field.value.trim()) {
+                            isValid = false;
+                        }
+                    });
+
+                    // Cek radio button dipilih
+                    if (!isRadioChecked(tipePembayaranRadios) || !isRadioChecked(metodePembayaranRadios)) {
+                        isValid = false;
+                    }
+
+                    // Jika DP dipilih, pastikan jumlahdp diisi
+                    const dpRadio = document.getElementById("dp");
+                    if (dpRadio.checked) {
+                        const jumlahDP = document.getElementById("jumlahdp").value;
+                        if (!jumlahDP || parseFloat(jumlahDP) <= 0) {
+                            isValid = false;
+                        }
+                    }
+
+                    // Enable/Disable tombol
+                    bayarSekarangButton.disabled = !isValid;
+                }
+
+                // Tambahkan event listener ke semua field
+                requiredFields.forEach(id => {
+                    const field = document.getElementById(id);
+                    field.addEventListener("input", checkFormValidity);
+                });
+
+                [...tipePembayaranRadios, ...metodePembayaranRadios].forEach(radio => {
+                    radio.addEventListener("change", checkFormValidity);
+                });
+
+                document.getElementById("jumlahdp").addEventListener("input", checkFormValidity);
+
+                // Jalankan saat pertama kali
+                checkFormValidity();
             });
         </script>
     @endsection

@@ -16,6 +16,7 @@
                     <table class="table align-items-center mb-0 table-hover">
                         <thead>
                             <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Pemilik</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Rekening</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nomor Rekening</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
@@ -24,6 +25,9 @@
                         <tbody>
                             @foreach ($rekening as $rek)
                                 <tr>
+                                    <td class="align-middle">
+                                        <p class="text-xs font-weight-bold mb-0">{{ $rek->namapemilik }}</p>
+                                    </td>
                                     <td class="align-middle">
                                         <p class="text-xs font-weight-bold mb-0">{{ $rek->namabang }}</p>
                                     </td>
@@ -83,6 +87,14 @@
                                                         @method('PUT')
                                                         <!-- Input Fields -->
                                                         <div class="mb-3">
+                                                            <label for="namapemilik" class="form-label">Nama
+                                                                Pemilik</label><br>
+                                                            <input type="text"
+                                                                class="border-radius-lg text-sm w-100 px-3 py-2"
+                                                                id="namapemilik" name="namapemilik"
+                                                                value="{{ $rek->namapemilik }}" required oninput="this.value = this.value.toUpperCase();">
+                                                        </div>
+                                                        <div class="mb-3">
                                                             <label for="namabang" class="form-label">Nama
                                                                 Bang</label><br>
                                                             <input type="text"
@@ -133,6 +145,11 @@
                     <form action="{{ route('rekening.tambah') }}" method="POST">
                         @csrf
                         <div class="row">
+                            <div>
+                                <label for="namapemilik" class="form-label">Nama Pemilik</label>
+                                <input type="text" class="border-radius-lg text-sm w-100 px-3 py-2" id="namapemilik"
+                                    name="namapemilik" placeholder="Nama Pemilik" required oninput="this.value = this.value.toUpperCase();">
+                            </div>
                             <div class="col-md-6">
                                 <label for="namabang" class="form-label">Nama Bang</label>
                                 <input type="text" class="border-radius-lg text-sm w-100 px-3 py-2" id="namabang"
