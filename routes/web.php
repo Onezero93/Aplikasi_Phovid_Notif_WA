@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JasaController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RekeningController;
 
@@ -36,6 +37,14 @@ Route::post('/tambahdatajasa', [JasaController::class, 'tambahJasa'])->name('jas
 Route::post('/perbaruijasa/{id_jasa}', [JasaController::class, 'perbaruiJasa'])->name('jasa.perbarui');
 Route::get('/detailjasa/{id_jasa}', [JasaController::class, 'detailJasa'])->name('jasa.detail');
 Route::delete('/hapusjasa/{id_jasa}', [JasaController::class, 'hapusDataJasa'])->name('jasa.hapus');
+
+//pelanggan pemesanan
+Route::get('/datapemesanan', [PemesananController::class, 'tampilPemesanan'])->name('pemesanan.datapemesanan');
+Route::put('/pemesanan/update-status/{id_pemesanan}', [PemesananController::class, 'updateStatus'])->name('status.perbarui');
+Route::post('/kirim-wa', [PemesananController::class, 'kirimWaAjax'])->name('kirim.wa');
+
+
+
 
 //rekenig
 Route::get('/datarekening', [RekeningController::class, 'tampilRekening'])->name('rekening.datarekening');

@@ -19,7 +19,7 @@
           </a>
         </li>--}}
         <li class="nav-item">
-            <a class="nav-link text-dark" href="">
+            <a class="nav-link text-dark{{ request()->is('datapemesanan') ? 'active bg-gradient-dark text-white' : '' }}" href="{{ url('/datapemesanan') }}">
               <i class="material-symbols-rounded opacity-5">work</i>
               <span class="nav-link-text ms-1">Data Orderan Jasa</span>
             </a>
