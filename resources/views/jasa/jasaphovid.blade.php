@@ -58,7 +58,8 @@
                                             </ul>
                                             {{-- untuk delete --}}
                                             <div class="offcanvas offcanvas-end" tabindex="-1"
-                                                id="sidebarDelete{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel">
+                                                id="sidebarDelete{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel"
+                                                data-bs-backdrop="static" data-bs-keyboard="false">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="offcanvasLabel">Konfirmasi Hapus
                                                     </h5>
@@ -71,14 +72,13 @@
                                                     <form action="{{ route('jasa.hapus', $js->id_jasa) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="offcanvas">Batal</button>
+                                                        <button type="submit" class="btn btn-danger w-100 mt-3">Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>
                                             {{-- untuk edit --}}
-                                            <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarUpdate{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel">
+                                            <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarUpdate{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel"
+                                                data-bs-backdrop="static" data-bs-keyboard="false">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="offcanvasLabel">Perbarui Jasa</h5>
                                                     <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -105,13 +105,13 @@
                                                             <label for="harga{{ $js->id_jasa }}" class="form-label">Harga</label>
                                                             <input type="text" name="harga" id="harga{{ $js->id_jasa }}" class="border-radius-lg text-sm w-100 px-3 py-2" value="{{ $js->harga }}" required>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary">Perbarui</button>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Batal</button>
+                                                        <button type="submit" class="btn btn-primary w-100 mt-3">Perbarui</button>
                                                     </form>
                                                 </div>
                                             </div>
                                             {{-- untuk detail --}}
-                                            <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarDetail{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel">
+                                            <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarDetail{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel"
+                                                data-bs-backdrop="static" data-bs-keyboard="false">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="offcanvasLabel">Detail Jasa</h5>
                                                     <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -121,10 +121,10 @@
                                                 <div class="offcanvas-body text-center">
                                                     <!-- Gambar Jasa -->
                                                     <img src="{{ asset($js->gambar) }}" alt="Gambar Jasa" class="img-fluid shadow border-radius-lg mb-3" style="max-width: 300px;">
-                                                    
+
                                                     <!-- Nama Jasa -->
                                                     <h4 class="text-dark font-weight-bold">{{ $js->namajasa }}</h4>
-                                            
+
                                                     <!-- Deskripsi & Harga -->
                                                     <div class="text-start mt-3">
                                                         <p class="text-muted" style="white-space: pre-wrap;">{{ $js->deskripsi }}</p>
@@ -132,7 +132,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                                                                    
+
                                         </div>
                                     </div>
                                     <!-- End Dropdown More -->
@@ -155,8 +155,9 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Pengguna -->
-    <div class="modal fade" id="tambahDataJasa" tabindex="-1" aria-labelledby="tambahJasaLabel" aria-hidden="true">
+    <!-- Modal Tambah Jasa -->
+    <div class="modal fade" id="tambahDataJasa" tabindex="-1" aria-labelledby="tambahJasaLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-scrollable"> <!-- Tambahkan class ini -->
             <div class="modal-content">
                 <div class="modal-header">
@@ -198,8 +199,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -233,11 +233,11 @@
         document.querySelectorAll('[id^="previewGambar"]').forEach((preview) => {
             const id = preview.id.replace('previewGambar', '');
             const fileInput = document.getElementById('gambar' + id);
-            
+
             preview.addEventListener('click', function() {
                 fileInput.click();
             });
-    
+
             fileInput.addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -250,5 +250,5 @@
             });
         });
     </script>
-    
+
 @endsection

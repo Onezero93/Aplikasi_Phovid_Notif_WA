@@ -9,6 +9,9 @@
                         style="max-height: 200px;">
                     <p class="fw-bold">Harga: Rp {{ number_format($pesananjasa->harga, 0, ',', '.') }}</p>
                 </div>
+                @if (session('error'))
+                    <div class="alert alert-danger text-white">{{ session('error') }}</div>
+                @endif
                 <form id="pesanForm" action="{{ route('simpan.pesanan') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id_jasa" value="{{ $pesananjasa->id_jasa }}">
@@ -382,6 +385,25 @@
 
                 // Jalankan saat pertama kali
                 checkFormValidity();
+            });
+            document.addEventListener('DOMContentLoaded', function() {
+                const inputNomorWA = document.getElementById('nomorwa');
+
+                inputNomorWA.addEventListener('blur', function() {
+                    let nomor = inputNomorWA.value.trim();
+
+                    // Hapus awalan 0 jika ada
+                    if (nomor.startsWith('0')) {
+                        nomor = nomor.slice(1);
+                    }
+
+                    // Tambahkan awalan 62 jika belum ada
+                    if (!nomor.startsWith('62')) {
+                        nomor = '62' + nomor;
+                    }
+
+                    inputNomorWA.value = nomor;
+                });
             });
         </script>
     @endsection

@@ -32,12 +32,37 @@
                                         <p class="mb-4 text-sm">Rp {{ number_format($jsh->harga, 0, ',', '.') }}
                                         </p>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <a type="button" class="btn btn-primary btn-sm mb-0">Detail
-                                                Jasa</a>
+                                            <button type="button" class="btn btn-primary btn-sm mb-0"
+                                                data-bs-toggle="modal" data-bs-target="#modalDetail{{ $jsh->id_jasa }}">
+                                                Detail Jasa
+                                            </button>
                                             <a href="{{ route('pesanan.jasa', $jsh->id_jasa) }}"
                                                 class="btn btn-success btn-sm mb-0">
                                                 Pesan
                                             </a>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalDetail{{ $jsh->id_jasa }}" tabindex="-1"
+                                        aria-labelledby="modalLabel{{ $jsh->id_jasa }}" aria-hidden="true"
+                                        data-bs-backdrop="static" data-bs-keyboard="false">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalLabel{{ $jsh->id_jasa }}">
+                                                        {{ $jsh->namajasa }}</h5>
+                                                    <button type="button" class="btn ms-auto" data-bs-dismiss="modal"
+                                                        aria-label="Close"><i class="fas fa-times"></i></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ asset($jsh->gambar) }}" alt="Gambar Jasa"
+                                                        class="img-fluid mb-3">
+                                                    <p><strong>Harga:</strong> Rp
+                                                        {{ number_format($jsh->harga, 0, ',', '.') }}</p>
+                                                    <p class="mb-1"><strong>Deskripsi</strong></p>
+                                                    <p class="text-muted" style="white-space: pre-line;">{{ $jsh->deskripsi ?? 'Tidak ada deskripsi.' }}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

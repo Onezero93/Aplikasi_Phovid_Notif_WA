@@ -43,9 +43,6 @@ Route::get('/datapemesanan', [PemesananController::class, 'tampilPemesanan'])->n
 Route::put('/pemesanan/update-status/{id_pemesanan}', [PemesananController::class, 'updateStatus'])->name('status.perbarui');
 Route::post('/kirim-wa', [PemesananController::class, 'kirimWaAjax'])->name('kirim.wa');
 
-
-
-
 //rekenig
 Route::get('/datarekening', [RekeningController::class, 'tampilRekening'])->name('rekening.datarekening');
 Route::post('/tambahrekening', [RekeningController::class, 'tambahRekening'])->name('rekening.tambah');
@@ -54,6 +51,7 @@ Route::delete('/hapusrekening/{id_rekening}', [RekeningController::class, 'hapus
 // Route::get('/login', function () {
 //     return view('auth.login');
 // });
+
 Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasahome');
 Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
 Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');

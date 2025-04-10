@@ -4,10 +4,10 @@
     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <ul class="navbar-nav me-auto">
             <li class="nav-item">
-                <a class="nav-link text-white" href="index.html">Home</a>
+                <a class="nav-link text-white{{ request()->is('home') ? 'active bg-gradient-dark text-white' : '' }}" href="{{ url('/') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="jasa.html">Jasa</a>
+                <a class="nav-link text-white" href="jasa.html">Riwayat Pesanan</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="tentang.html">Tentang</a>

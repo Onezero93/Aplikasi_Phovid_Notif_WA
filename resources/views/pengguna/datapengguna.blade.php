@@ -57,6 +57,7 @@
                                             @endif
                                         </td>
                                         <td class="align-middle text-center">
+                                            {{-- Offcanvas untuk Delete Data Pengguna --}}
                                             <a href=""
                                                 class="btn btn-link text-danger text-gradient px-3 mb-0"
                                                 data-bs-toggle="offcanvas"
@@ -65,7 +66,8 @@
                                             </a>
                                             {{-- untuk delete --}}
                                             <div class="offcanvas offcanvas-end" tabindex="-1"
-                                                id="sidebarDelete{{ $pdk->id_user }}" aria-labelledby="offcanvasLabel">
+                                                id="sidebarDelete{{ $pdk->id_user }}" aria-labelledby="offcanvasLabel"
+                                                data-bs-backdrop="static" data-bs-keyboard="false">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="offcanvasLabel">Konfirmasi Hapus</h5>
                                                     <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas"
@@ -90,14 +92,12 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="offcanvas">Batal</button>
+                                                        <button type="submit" class="btn btn-danger w-100 mt-3">Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>
 
-                                            <!-- untuk Edit -->
+                                            <!-- tombol untuk Edit -->
                                             <a href="#sidebarUpdate{{ $pdk->id_user }}"
                                                 class="btn btn-link text-warning px-3 mb-0" data-bs-toggle="offcanvas">
                                                 <i class="material-symbols-rounded text-sm me-2">edit</i>Edit
@@ -105,7 +105,8 @@
 
                                             <!-- Offcanvas untuk Perbarui Data Pengguna -->
                                             <div class="offcanvas offcanvas-end" tabindex="-1"
-                                                id="sidebarUpdate{{ $pdk->id_user }}" aria-labelledby="offcanvasLabel">
+                                                id="sidebarUpdate{{ $pdk->id_user }}" aria-labelledby="offcanvasLabel"
+                                                data-bs-backdrop="static" data-bs-keyboard="false">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="offcanvasLabel">Perbarui Data Pengguna
                                                     </h5>
@@ -126,16 +127,16 @@
                                                             <div class="d-flex justify-content-center mb-3">
                                                                 <div class="position-relative"
                                                                     style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 3px solid #007bff; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
-                                                                    
+
                                                                     <!-- Input file hidden -->
                                                                     <input type="file" id="gambar{{ $pdk->id_user }}"
                                                                         name="gambar" accept="image/*" class="d-none"
                                                                         onchange="previewImage(event, {{ $pdk->id_user }})">
-                                                                    
+
                                                                     <!-- Label sebagai tombol upload -->
                                                                     <label for="gambar{{ $pdk->id_user }}" class="m-0 p-0 d-flex align-items-center justify-content-center"
                                                                         style="cursor: pointer; width: 100%; height: 100%;">
-                                                                        
+
                                                                         <!-- Gambar Profil -->
                                                                         <img id="previews{{ $pdk->id_user }}"
                                                                             src="{{ asset($pdk->gambar ?? 'https://via.placeholder.com/150') }}"
@@ -144,7 +145,7 @@
                                                                     </label>
                                                                 </div>
                                                             </div>
-                                                            
+
 
                                                         <!-- Input Fields -->
                                                         <div class="mb-3">
@@ -212,9 +213,7 @@
                                                         </div>
 
                                                         <div class="mt-4">
-                                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="offcanvas">Batal</button>
+                                                            <button type="submit" class="btn btn-primary w-100 mt-3">Simpan</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -229,10 +228,9 @@
             </div>
         </div>
     </div>
-
     <!-- Modal Tambah Pengguna -->
     <div class="modal fade" id="tambahDataPengguna" tabindex="-1" aria-labelledby="tambahPenggunaLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-scrollable"> <!-- Tambahkan class ini -->
             <div class="modal-content">
                 <div class="modal-header">
@@ -302,16 +300,13 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Simpan</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
     <script>
         function previewImage(event) {
             var input = event.target;

@@ -224,15 +224,33 @@
         });
 
         document.querySelectorAll('.kirim-wa').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
+    btn.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
 
-                axios.post("{{ route('kirim.wa') }}", {
-                        id: id
-                    })
-                    .then(function(response) {})
-                    .catch(function(error) {});
+        axios.post("{{ route('kirim.wa') }}", {
+                id: id
+            })
+            .then(function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Notifikasi Dikirim',
+                    text: 'Pesan WhatsApp berhasil dikirim!',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            })
+            .catch(function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Mengirim',
+                    text: 'Terjadi kesalahan saat mengirim pesan.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
             });
-        });
+    });
+});
+
     </script>
+
 @endsection
