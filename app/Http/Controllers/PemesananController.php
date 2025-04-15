@@ -11,7 +11,20 @@ class PemesananController extends Controller
     //
     public function tampilPemesanan(Request $request)
     {
-        $pemesanan = Pemesanan::with('jasa')->get();
+        $query = Pemesanan::with('jasa');
+
+        // Cek apakah ada parameter pencarian
+        if ($request->has('search') && $request->search != '') {
+            $query->where('namapelanggan', 'like', '%' . $request->search . '%')
+                  ->orWhere('alamat', 'like', '%' . $request->search . '%')
+                  ->orWhere('nomorwa', 'like', '%' . $request->search . '%')
+                  ->orWhereHas('jasa', function ($q) use ($request) {
+                      $q->where('namajasa', 'like', '%' . $request->search . '%');
+                  });
+        }
+
+        $pemesanan = $query->get();
+
         return view('pesanan.pemesanan', compact('pemesanan'));
     }
     public function updateStatus(Request $request, $id)

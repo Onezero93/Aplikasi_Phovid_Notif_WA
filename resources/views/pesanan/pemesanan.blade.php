@@ -3,9 +3,14 @@
     <div class="col-10 mx-auto">
         <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div
-                    class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex align-items-center justify-content-between px-3">
-                    <h6 class="text-white text-capitalize">Data Order</h6>
+                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex align-items-center justify-content-between px-3">
+                    <h6 class="text-white text-capitalize m-0">Data Order</h6>
+                    <form action="" method="GET" class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group input-group-outline">
+                            <label class="form-label">Cari data...</label>
+                            <input type="text" name="search" class="form-control text-white" value="{{ request('search') }}">
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
@@ -163,10 +168,7 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-
-
                                                         <hr class="my-3">
-
                                                         <p class="mb-2"><strong>Bukti Pembayaran:</strong></p>
                                                         <div class="text-center">
                                                             <img src="{{ $order->gambarbuktipembayaran ? asset('storage/' . $order->gambarbuktipembayaran) : asset('assets/img/team-2.jpg') }}"
