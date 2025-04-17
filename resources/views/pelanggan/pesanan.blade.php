@@ -98,7 +98,7 @@
                                 accept="image/*" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Kirim Pesanan</button>
+                    <button type="submit" class="btn btn-success" id="btnKirimPesanan">Kirim Pesanan</button>
                 </form>
                 <!-- Modal Konfirmasi -->
                 <div class="modal fade" id="modalKonfirmasi" tabindex="-1" aria-labelledby="modalKonfirmasiLabel"
@@ -405,5 +405,28 @@
                     inputNomorWA.value = nomor;
                 });
             });
+
+            document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("pesanForm");
+        const btnKirim = document.getElementById("btnKirimPesanan");
+
+        btnKirim.addEventListener("click", function (e) {
+            e.preventDefault(); // Cegah submit langsung
+
+            Swal.fire({
+                title: 'Kirim Pesanan?',
+                text: "Pastikan data sudah benar.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, kirim!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Submit manual setelah konfirmasi
+                }
+            });
+        });
+    });
         </script>
     @endsection

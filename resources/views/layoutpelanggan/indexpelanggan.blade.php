@@ -88,6 +88,7 @@
     <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{ asset('js/material-dashboard.min.js?v=3.2.0') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         window.addEventListener("load", function() {
             document.getElementById("preloader").style.display = "none";

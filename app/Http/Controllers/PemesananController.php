@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pemesanan;
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
 
 class PemesananController extends Controller
@@ -22,19 +23,23 @@ class PemesananController extends Controller
                       $q->where('namajasa', 'like', '%' . $request->search . '%');
                   });
         }
-
+        $karyawan = User::where('status', 'karyawan')->get();
         $pemesanan = $query->get();
 
-        return view('pesanan.pemesanan', compact('pemesanan'));
+
+        return view('pesanan.pemesanan', compact('pemesanan','karyawan'));
     }
     public function updateStatus(Request $request, $id)
 {
+    // dd($request->all());
     $request->validate([
         'statuspemesanan' => 'required|in:Setujui,Batal,Proses',
+        'id_user' => 'nullable|exists:user,id_user',
     ]);
 
     $pemesanan = Pemesanan::findOrFail($id);
     $pemesanan->statuspemesanan = $request->statuspemesanan;
+    $pemesanan->id_user = $request->id_user;
     $pemesanan->save();
 
     return back()->with('success', 'Status pemesanan berhasil diperbarui.');

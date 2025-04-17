@@ -14,6 +14,7 @@ class Pemesanan extends Model
     protected $primaryKey = 'id_pemesanan';
 
     protected $fillable = [
+        'id_user',
         'id_jasa', // Tambahkan id_jasa di sini
         'namapelanggan',
         'alamat',
@@ -35,4 +36,10 @@ class Pemesanan extends Model
     {
         return $this->belongsTo(Jasa::class, 'id_jasa', 'id_jasa');
     }
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'id_user', 'id_user');
+}
+
 }

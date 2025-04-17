@@ -248,7 +248,7 @@
                             <div class="position-relative"
                                 style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
                                 <input type="file" id="gambar" name="gambar" accept="image/*" class="d-none"
-                                    onchange="previewImage(event)">
+                                    onchange="previewImageadd(event)">
                                 <label for="gambar" class="m-0 p-0"
                                     style="cursor: pointer; width: 100%; height: 100%;">
                                     <img id="preview" src="https://via.placeholder.com/120" alt=""
@@ -271,7 +271,7 @@
                             <div class="input-group">
                                 <input type="password" class="border-radius-lg text-sm w-100 px-3 py-2" id="password"
                                     name="password" placeholder="Password" required>
-                                <span class="input-group-text border-start-0 px-3" onclick="togglePassword()"
+                                <span class="input-group-text border-start-0 px-3" onclick="togglePasswordadd()"
                                     style="cursor: pointer;">
                                     <i id="eyeIcon" class="fas fa-eye"></i>
                                 </span>
@@ -308,7 +308,7 @@
         </div>
     </div>
     <script>
-        function previewImage(event) {
+        function previewImageadd(event) {
             var input = event.target;
             var reader = new FileReader();
             reader.onload = function() {
@@ -318,7 +318,7 @@
             reader.readAsDataURL(input.files[0]);
         }
 
-        function togglePassword() {
+        function togglePasswordadd() {
             var passwordInput = document.getElementById("password");
             var eyeIcon = document.getElementById("eyeIcon");
 

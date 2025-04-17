@@ -37,6 +37,10 @@
                                     </th>
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">
+                                        Karyawan
+                                    </th>
+                                    <th
+                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">
                                         Aksi
                                     </th>
 
@@ -65,11 +69,11 @@
                                             </div>
                                         </td>
 
+                                        <form action="{{ route('status.perbarui', $order->id_pemesanan) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
                                         <td class="align-middle">
-                                            <form action="{{ route('status.perbarui', $order->id_pemesanan) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PUT')
 
                                                 <select name="statuspemesanan" id="statusSelect-{{ $order->id }}"
                                                     class="text-center status-dropdown border-0 px-2 py-1 text-xs"
@@ -85,8 +89,18 @@
                                                         {{ $order->statuspemesanan == 'Proses' ? 'selected' : '' }}>Proses
                                                     </option>
                                                 </select>
-                                            </form>
                                         </td>
+                                        <td class="align-middle text-center">
+                                            <select name="id_user" class="form-select form-select-sm" onchange="this.form.submit()" aria-label="Select User"
+                                            style="border-radius: 0.5rem; appearance: none; font-size: 0.75rem;">
+                                                @foreach ($karyawan as $k)
+                                                    <option value="{{ $k->id_user }}" {{ $order->id_user == $k->id_user ? 'selected' : '' }}>
+                                                        {{ $k->namalengkap }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            </td>
+                                        </form>
                                         <td class="align-middle text-center">
                                             {{-- <a href="" class="btn btn-link text-success text-gradient p-1 m-0"
                                                 data-bs-toggle="offcanvas" data-bs-target="">
@@ -94,11 +108,13 @@
                                             </a> --}}
                                             <a href="javascript:void(0)"
                                                 class="btn btn-link text-success text-gradient p-1 m-0 kirim-wa"
+                                                title="Kirim ke WhatsApp customer"
                                                 data-id="{{ $order->id_pemesanan }}">
                                                 <i class="fab fa-whatsapp fs-5"></i>
                                             </a>
 
                                             <a href="#" class="btn btn-link text-primary p-1 m-0"
+                                            title="Detail Pemesanan"
                                                 data-bs-toggle="offcanvas"
                                                 data-bs-target="#detailOrder{{ $order->id_pemesanan }}">
                                                 <i class="material-symbols-rounded fs-5">article</i>
@@ -179,6 +195,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            {{-- <a href=""
+                                                class="btn btn-link text-warning text-gradient p-1 m-0"
+                                                title="Kirim Tugas ke Karyawan">
+                                                <i class="fas fa-paper-plane fs-6"></i>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
