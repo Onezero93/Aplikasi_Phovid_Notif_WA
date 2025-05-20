@@ -17,9 +17,9 @@ class LoginController extends Controller
     {
         if(Auth::attempt($request->only('username','password'))){
             if( Auth::user()->level == 'admin'){
-                return redirect('/datapengguna')->with('success', 'Success Login As Admin!');
+                return redirect('/dashboard')->with('success', 'Success Login As Admin!');
             }
-            return redirect('/karyawan/tugas')->with('success', 'Succes Login As Karyawan!');
+            return redirect('/dashboard')->with('success', 'Succes Login As Karyawan!');
         }
         return redirect()->back()->withErrors('Username / Password is false');
         // return redirect('/');

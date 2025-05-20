@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('img/logos/logo.svg') }}">
   <title>
-    Material Dashboard 3 by Creative Tim
+    LOGIN
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
@@ -32,7 +32,7 @@
               <div class="card z-index-0 fadeIn3 fadeInBottom">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                   <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Sign in</h4>
+                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">LOGIN</h4>
                   </div>
                 </div>
                 <div class="card-body">
@@ -61,7 +61,7 @@
                           <input type="password" name="password" id="password" class="form-control">
                       </div>
                       <div class="text-center">
-                          <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign in</button>
+                          <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">login</button>
                       </div>
                   </form>
                 </div>

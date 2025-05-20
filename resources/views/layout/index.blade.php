@@ -37,8 +37,7 @@
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand px-4 py-3 m-0"
-                href="" target="_blank">
+            <a class="navbar-brand px-4 py-3 m-0" href="" target="_blank">
                 <img src="{{ asset('img/logos/logo2.png') }}" class="navbar-brand-img" alt="main_logo">
                 <span class="ms-1 text-sm text-dark">PHOVID</span>
             </a>
@@ -91,8 +90,9 @@
                                         class="avatar avatar-sm rounded-circle" style="height: 40px; width: 40px;">
                                 @endauth
                             </a>
-                        
-                            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownUser">
+
+                            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
+                                aria-labelledby="dropdownUser">
                                 <li class="mb-2">
                                     <a class="dropdown-item border-radius-md" href="}}">
                                         <i class="material-symbols-rounded me-2">person</i> Profil Saya
@@ -105,17 +105,17 @@
                                 </li>
                                 <li>
                                     @auth
-                                    <form action="{{ route('logout') }}" method="post">
-                                        @csrf
-                                        <button class="dropdown-item border-radius-md" type="submit">
-                                            <i class="material-symbols-rounded me-2">logout</i> Logout
-                                        </button>
-                                    </form>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button class="dropdown-item border-radius-md" type="submit">
+                                                <i class="material-symbols-rounded me-2">logout</i> Logout
+                                            </button>
+                                        </form>
                                     @endauth
                                 </li>
                             </ul>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -140,239 +140,7 @@
             document.getElementById("preloader").style.display = "none";
         });
 
-        var ctx = document.getElementById("chart-bars").getContext("2d");
-
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["M", "T", "W", "T", "F", "S", "S"],
-                datasets: [{
-                    label: "Views",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "#43A047",
-                    data: [50, 45, 22, 28, 50, 60, 76],
-                    barThickness: 'flex'
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                            color: '#e5e5e5'
-                        },
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 500,
-                            beginAtZero: true,
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                            color: "#737373"
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-
-
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-        new Chart(ctx2, {
-            type: "line",
-            data: {
-                labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-                datasets: [{
-                    label: "Sales",
-                    tension: 0,
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    pointBackgroundColor: "#43A047",
-                    pointBorderColor: "transparent",
-                    borderColor: "#43A047",
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [120, 230, 130, 440, 250, 360, 270, 180, 90, 300, 310, 220],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                    tooltip: {
-                        callbacks: {
-                            title: function(context) {
-                                const fullMonths = ["January", "February", "March", "April", "May", "June",
-                                    "July", "August", "September", "October", "November", "December"
-                                ];
-                                return fullMonths[context[0].dataIndex];
-                            }
-                        }
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [4, 4],
-                            color: '#e5e5e5'
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 12,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 12,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-
-        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-
-        new Chart(ctx3, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Tasks",
-                    tension: 0,
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    pointBackgroundColor: "#43A047",
-                    pointBorderColor: "transparent",
-                    borderColor: "#43A047",
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [4, 4],
-                            color: '#e5e5e5'
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#737373',
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [4, 4]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
+        
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;

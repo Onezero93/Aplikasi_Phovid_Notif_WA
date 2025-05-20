@@ -6,9 +6,9 @@
             <li class="nav-item">
                 <a class="nav-link text-white{{ request()->is('home') ? 'active bg-gradient-dark text-white' : '' }}" href="{{ url('/') }}">Home</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link text-white" href="jasa.html">Riwayat Pesanan</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link text-white" href="tentang.html">Tentang</a>
             </li>

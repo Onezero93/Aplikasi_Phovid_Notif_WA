@@ -8,6 +8,7 @@ use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RekeningController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::post('/log', [LoginController::class, 'login'])->name('login.store');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'grafikPendapatan']);
     Route::middleware(['cekstatus:admin'])->group(function () {
 
         //datapengguna
@@ -64,8 +66,6 @@ Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasa
 Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
 Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');
 
-
-
 // Route::get('/p', function () {
-//     return view('karyawan.tugaskaryawan');
+//     return view('dashboard.halamanutama');
 // });

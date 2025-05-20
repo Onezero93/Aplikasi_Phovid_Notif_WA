@@ -13,27 +13,8 @@
           <div class="card-header p-2 ps-3">
             <div class="d-flex justify-content-between">
               <div>
-                <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                <h4 class="mb-0">$53k</h4>
-              </div>
-              <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                <i class="material-symbols-rounded opacity-10">weekend</i>
-              </div>
-            </div>
-          </div>
-          <hr class="dark horizontal my-0">
-          <div class="card-footer p-2 ps-3">
-            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+55% </span>than last week</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-        <div class="card">
-          <div class="card-header p-2 ps-3">
-            <div class="d-flex justify-content-between">
-              <div>
-                <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                <h4 class="mb-0">2300</h4>
+                <p class="text-sm mb-0 text-capitalize">Pelanggan</p>
+                <h4 class="mb-0">{{ $jumlahPelangganDiproses }}</h4>
               </div>
               <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
                 <i class="material-symbols-rounded opacity-10">person</i>
@@ -42,7 +23,7 @@
           </div>
           <hr class="dark horizontal my-0">
           <div class="card-footer p-2 ps-3">
-            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+3% </span>than last month</p>
+            <p class="mb-0 text-sm"><span class="text-warning font-weight-bolder">Proses</span></p>
           </div>
         </div>
       </div>
@@ -51,95 +32,74 @@
           <div class="card-header p-2 ps-3">
             <div class="d-flex justify-content-between">
               <div>
-                <p class="text-sm mb-0 text-capitalize">Ads Views</p>
-                <h4 class="mb-0">3,462</h4>
+                <p class="text-sm mb-0 text-capitalize">Pelanggan</p>
+                <h4 class="mb-0">{{ $jumlahPelangganDisetujui }}</h4>
               </div>
               <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                <i class="material-symbols-rounded opacity-10">leaderboard</i>
+                <i class="material-symbols-rounded opacity-10">person</i>
               </div>
             </div>
           </div>
           <hr class="dark horizontal my-0">
           <div class="card-footer p-2 ps-3">
-            <p class="mb-0 text-sm"><span class="text-danger font-weight-bolder">-2% </span>than yesterday</p>
+            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">Setujui
           </div>
         </div>
       </div>
-      <div class="col-xl-3 col-sm-6">
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
           <div class="card-header p-2 ps-3">
             <div class="d-flex justify-content-between">
               <div>
-                <p class="text-sm mb-0 text-capitalize">Sales</p>
-                <h4 class="mb-0">$103,430</h4>
+                <p class="text-sm mb-0 text-capitalize">Pelanggan</p>
+                <h4 class="mb-0">{{ $jumlahPelangganDibatalkan }}</h4>
               </div>
               <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                <i class="material-symbols-rounded opacity-10">weekend</i>
+                <i class="material-symbols-rounded opacity-10">person</i>
               </div>
             </div>
           </div>
           <hr class="dark horizontal my-0">
           <div class="card-footer p-2 ps-3">
-            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+5% </span>than yesterday</p>
+            <p class="mb-0 text-sm"><span class="text-danger font-weight-bolder">Batal </span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-4 ps-3">
+            <div class="d-flex justify-content-between">
+              <div>
+                <p class="text-sm mb-0 text-capitalize">Pendapatan</p>
+                <h4 class="mb-0">Rp {{ number_format($totalPendapatan) }}</h4>
+              </div>
+              <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                <i class="material-symbols-rounded opacity-10">account_balance_wallet</i>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-md-6 mt-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h6 class="mb-0 ">Website Views</h6>
-            <p class="text-sm ">Last Campaign Performance</p>
-            <div class="pe-2">
-              <div class="chart">
-                <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+        <div class="col-lg-12 col-md-12 mt-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="mb-0">Grafik pendapatan per bulan</h6>
+                {{-- <p class="text-sm">Last Campaign Performance</p> --}}
+                <div class="pe-2">
+                  <div class="chart">
+                    <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+                  </div>
+                </div>
+                <hr class="dark horizontal">
+                {{-- <div class="d-flex">
+                  <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
+                  <p class="mb-0 text-sm">campaign sent 2 days ago</p>
+                </div> --}}
               </div>
             </div>
-            <hr class="dark horizontal">
-            <div class="d-flex ">
-              <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
-              <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
-            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 mt-4 mb-4">
-        <div class="card ">
-          <div class="card-body">
-            <h6 class="mb-0 "> Daily Sales </h6>
-            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
-            <div class="pe-2">
-              <div class="chart">
-                <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
-              </div>
-            </div>
-            <hr class="dark horizontal">
-            <div class="d-flex ">
-              <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
-              <p class="mb-0 text-sm"> updated 4 min ago </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mt-4 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h6 class="mb-0 ">Completed Tasks</h6>
-            <p class="text-sm ">Last Campaign Performance</p>
-            <div class="pe-2">
-              <div class="chart">
-                <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
-              </div>
-            </div>
-            <hr class="dark horizontal">
-            <div class="d-flex ">
-              <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
-              <p class="mb-0 text-sm">just updated</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="row mb-4">
       <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
@@ -519,4 +479,68 @@
       </div>
     </footer>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById("chart-bars").getContext("2d");
+
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: {!! json_encode($labels) !!},
+                datasets: [{
+                    label: "Total Pendapatan",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: "#43A047",
+                    data: {!! json_encode($values) !!},
+                    barThickness: 'flex'
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                let value = context.parsed.y;
+                                return 'Rp ' + value.toLocaleString('id-ID');
+                            }
+                        }
+                    }
+                },
+                interaction: { intersect: false, mode: 'index' },
+                scales: {
+                    y: {
+                        grid: { drawBorder: false, display: true, drawOnChartArea: true, drawTicks: false, borderDash: [5, 5], color: '#e5e5e5' },
+                        ticks: {
+                            beginAtZero: true,
+                            padding: 10,
+                            font: { size: 14, lineHeight: 2 },
+                            color: "#737373",
+                            callback: function (value) {
+                                return 'Rp ' + value.toLocaleString('id-ID');
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { drawBorder: false, display: false, drawOnChartArea: false, drawTicks: false, borderDash: [5, 5] },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: { size: 14, lineHeight: 2 },
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
 @endsection

@@ -9,17 +9,24 @@ use App\Models\User;
 class KaryawanController extends Controller
 {
     //
-    public function tugasKaryawan()
+   public function tugasKaryawan()
 {
     $user = Auth::user();
 
     // Cek apakah user adalah karyawan
-    if ($user->status === 'karyawan') {
-        $tugas = Pemesanan::where('id_user', $user->id_user)->with('jasa')->get();
+    if ($user->statuspemesanan === 'karyawan') {
+        $tugas = Pemesanan::where('id_user', $user->id_user)
+                          ->where('statuspemesanan', 'Setujui')
+                          ->with('jasa')
+                          ->get();
     } else {
-        // Kalau admin, bisa lihat semua
-        $tugas = Pemesanan::with('jasa')->get();
+        // Kalau admin, bisa lihat semua yang Setujui
+        $tugas = Pemesanan::where('statuspemesanan', 'Setujui')
+                          ->with('jasa')
+                          ->get();
     }
+
     return view('karyawan.tugaskaryawan', compact('tugas'));
 }
+
 }
