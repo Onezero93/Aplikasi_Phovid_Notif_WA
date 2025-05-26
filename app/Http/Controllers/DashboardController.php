@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pemesanan;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
-    public function grafikPendapatan()
+    public function tampilData()
 {
+
+    $semuadatapemesanan = Pemesanan::with(['jasa', 'user'])->get();
+    $semuadatakaryawan =  User::where('status', 'karyawan')->get();
     // Ambil data yang statusnya "Setujui"
     $data = Pemesanan::where('statuspemesanan', 'Setujui')->get();
 
@@ -40,7 +44,9 @@ class DashboardController extends Controller
         'jumlahPelangganDisetujui',
         'jumlahPelangganDibatalkan',
         'jumlahPelangganDiproses',
-        'totalPendapatan'
+        'totalPendapatan',
+        'semuadatapemesanan',
+        'semuadatakaryawan'
     ));
 }
 

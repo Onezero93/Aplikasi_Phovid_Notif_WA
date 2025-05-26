@@ -27,7 +27,7 @@ Route::post('/log', [LoginController::class, 'login'])->name('login.store');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'grafikPendapatan']);
+    Route::get('/dashboard', [DashboardController::class, 'tampilData']);
     Route::middleware(['cekstatus:admin'])->group(function () {
 
         //datapengguna
