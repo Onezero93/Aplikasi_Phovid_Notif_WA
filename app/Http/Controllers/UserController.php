@@ -6,17 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     //menampilkan data pengguna
-    public function tampilData(Request $request){
+    public function tampilData(Request $request)
+    {
         $pengguna = User::all();
         return view('pengguna.datapengguna', compact('pengguna'));
     }
 
     //menambahkan data pengguna
-    public function tambahData(Request $request){
+    public function tambahData(Request $request)
+    {
         $request->validate([
             'namalengkap' => 'required|string|max:255',
             'username' => 'required|string|max:255',
@@ -50,7 +53,7 @@ class UserController extends Controller
         return redirect()->route('pengguna.datapengguna')->with('success', 'Admin berhasil ditambahkan!');
     }
 
-    
+
     public function perbaruiData(Request $request, string $id_user)
     {
         $user = User::findOrFail($id_user);
@@ -63,35 +66,35 @@ class UserController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|in:admin,karyawan',
         ]);
-    
+
         $user->namalengkap = $request->namalengkap;
         $user->username = $request->username;
-    
+
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-    
+
         $user->alamat = $request->alamat;
         $user->nomortelepon = $request->nomortelepon;
-    
+
         // Cek jika ada gambar baru diunggah
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama jika ada
             if (!empty($user->gambar) && file_exists(public_path($user->gambar))) {
                 unlink(public_path($user->gambar));
             }
-    
+
             // Simpan gambar baru
             $gambar = $request->file('gambar');
             $gambarName = time() . '.' . $gambar->getClientOriginalExtension();
             $gambar->move(public_path('fotos'), $gambarName);
             $user->gambar = 'fotos/' . $gambarName;
         }
-    
+
         $user->status = $request->status;
-    
+
         $user->save();
-    
+
         return redirect()->route('pengguna.datapengguna')->with('success', 'Pengguna berhasil diperbarui!');
     }
 
@@ -109,5 +112,42 @@ class UserController extends Controller
 
         return redirect()->route('pengguna.datapengguna')->with('success', 'Pengguna berhasil dihapus!');
     }
+    public function perbaruiProfil(Request $request)
+    {
+        $user = Auth::user();
 
+        $request->validate([
+            'namalengkap' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:user,username,' . $user->id_user . ',id_user',
+            'password' => 'nullable|string|min:6|max:255',
+            'alamat' => 'required|string|max:255',
+            'nomortelepon' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user->namalengkap = $request->namalengkap;
+        $user->username = $request->username;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->alamat = $request->alamat;
+        $user->nomortelepon = $request->nomortelepon;
+
+        if ($request->hasFile('gambar')) {
+            if (!empty($user->gambar) && file_exists(public_path($user->gambar))) {
+                unlink(public_path($user->gambar));
+            }
+
+            $gambar = $request->file('gambar');
+            $gambarName = time() . '.' . $gambar->getClientOriginalExtension();
+            $gambar->move(public_path('fotos'), $gambarName);
+            $user->gambar = 'fotos/' . $gambarName;
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
+    }
 }

@@ -145,7 +145,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Form Tambah Pengguna -->
                     <form action="{{ route('rekening.tambah') }}" method="POST">
                         @csrf
                         <div class="row">

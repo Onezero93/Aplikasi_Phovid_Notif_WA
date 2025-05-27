@@ -28,6 +28,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'tampilData']);
+    Route::post('/profil/perbarui', [UserController::class, 'perbaruiProfil'])->name('profil.perbarui');
     Route::middleware(['cekstatus:admin'])->group(function () {
 
         //datapengguna

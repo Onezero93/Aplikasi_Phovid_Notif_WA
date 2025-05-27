@@ -56,7 +56,8 @@ public function kirimWaAjax(Request $request)
              "Total: Rp" . number_format($order->totalharga, 0, ',', '.') . "\n\n".
              "Terima kasih telah menggunakan layanan kami!";
 
-    $response = Http::withOptions(['verify' => false])->withHeaders([
+    // Kirim ke pelanggan
+    Http::withOptions(['verify' => false])->withHeaders([
         'Authorization' => '9fd5BVdFtu6m4tYmHYMQ'
     ])->post('https://api.fonnte.com/send', [
         'target' => $order->nomorwa,
@@ -64,8 +65,27 @@ public function kirimWaAjax(Request $request)
         'countryCode' => '62'
     ]);
 
-    return response()->json(['success' => $response->successful()]);
+    // Kirim ke karyawan (jika user ada dan punya nomor)
+    if ($order->user && $order->user->nomortelepon) {
+        $pesanKaryawan = "*Notifikasi Pemesanan Masuk*\n".
+                         "Pelanggan: *{$order->namapelanggan}*\n".
+                         "Jasa: *" . ($order->jasa->namajasa ?? '-') . "*\n".
+                         "Jadwal: {$order->jadwalpemotretan}\n".
+                         "Status: *{$order->statuspemesanan}*";
+
+        Http::withOptions(['verify' => false])->withHeaders([
+            'Authorization' => '9fd5BVdFtu6m4tYmHYMQ'
+        ])->post('https://api.fonnte.com/send', [
+            'target' => $order->user->nomortelepon,
+            'message' => $pesanKaryawan,
+            'countryCode' => '62'
+        ]);
+    }
+
+    return response()->json(['success' => true]);
 }
+
+
 
 
 
