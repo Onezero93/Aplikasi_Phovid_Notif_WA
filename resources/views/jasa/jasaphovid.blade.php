@@ -167,19 +167,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Form Tambah Pengguna -->
                     <form action="{{ route('jasa.tambah') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <label for="gambar" class="form-label d-block text-center">Foto Jasa</label>
                         <div class="d-flex justify-content-center">
                             <div class="position-relative"
                                 style="width: 180px; height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
-                                <input type="file" id="gambar" name="gambar" accept="image/*" class="d-none"
-                                    onchange="previewImage(event)">
-                                <label for="gambar" class="m-0 p-0" style="cursor: pointer; width: 100%; height: 100%;">
-                                    <img id="preview" src="https://via.placeholder.com/180x120" alt=""
+                                <label for="gambaradd" class="m-0 p-0" style="cursor: pointer; width: 100%; height: 100%;">
+                                    <img id="preview-add" src="https://via.placeholder.com/180x120" alt=""
                                         style="width: 100%; height: 100%; object-fit: cover; display: block;">
                                 </label>
+                                <input type="file" id="gambaradd" name="gambar" accept="image/*" class="d-none"
+                                    onchange="previewAdd()">
                             </div>
                         </div>
                         <label for="namajasa" class="form-label">Nama Jasa</label><br>
@@ -209,14 +208,29 @@
 
 
     <script>
-        function previewImage(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            reader.onload = function() {
-                var img = document.getElementById('preview');
-                img.src = reader.result;
+        // function previewImage(event) {
+        //     var input = event.target;
+        //     var reader = new FileReader();
+        //     reader.onload = function() {
+        //         var img = document.getElementById('preview');
+        //         img.src = reader.result;
+        //     }
+        //     reader.readAsDataURL(input.files[0]);
+        // }
+        function previewAdd() {
+            const input = document.getElementById('gambaradd');
+            const preview = document.getElementById('preview-add');
+
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "#";
             }
-            reader.readAsDataURL(input.files[0]);
         }
 
         function formatText(textarea) {
@@ -228,8 +242,6 @@
             }
             textarea.value = lines.join('\n');
         }
-    </script>
-    <script>
         document.querySelectorAll('[id^="previewGambar"]').forEach((preview) => {
             const id = preview.id.replace('previewGambar', '');
             const fileInput = document.getElementById('gambar' + id);
@@ -250,5 +262,4 @@
             });
         });
     </script>
-
 @endsection

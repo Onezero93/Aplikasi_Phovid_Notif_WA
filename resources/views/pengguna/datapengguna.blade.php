@@ -58,8 +58,7 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             {{-- Offcanvas untuk Delete Data Pengguna --}}
-                                            <a href=""
-                                                class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                            <a href="" class="btn btn-link text-danger text-gradient px-3 mb-0"
                                                 data-bs-toggle="offcanvas"
                                                 data-bs-target="#sidebarDelete{{ $pdk->id_user }}">
                                                 <i class="material-symbols-rounded text-sm me-2">delete</i>Delete
@@ -87,12 +86,14 @@
                                                 </div>
                                                 <div class="offcanvas-body">
                                                     <p>Apakah Anda yakin ingin menghapus pengguna<br>
-                                                        <strong>{{ $pdk->namalengkap }}</strong> ini?</p>
+                                                        <strong>{{ $pdk->namalengkap }}</strong> ini?
+                                                    </p>
                                                     <form action="{{ route('pengguna.hapus', $pdk->id_user) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger w-100 mt-3">Hapus</button>
+                                                        <button type="submit"
+                                                            class="btn btn-danger w-100 mt-3">Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -124,27 +125,28 @@
                                                         <!-- Foto Profil -->
                                                         <label for="gambar{{ $pdk->id_user }}"
                                                             class="form-label d-block text-center">Foto Profil</label>
-                                                            <div class="d-flex justify-content-center mb-3">
-                                                                <div class="position-relative"
-                                                                    style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 3px solid #007bff; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                                                        <div class="d-flex justify-content-center mb-3">
+                                                            <div class="position-relative"
+                                                                style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 3px solid #007bff; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
 
-                                                                    <!-- Input file hidden -->
-                                                                    <input type="file" id="gambar{{ $pdk->id_user }}"
-                                                                        name="gambar" accept="image/*" class="d-none"
-                                                                        onchange="previewImage(event, {{ $pdk->id_user }})">
+                                                                <!-- Input file hidden -->
+                                                                <input type="file" id="gambar{{ $pdk->id_user }}"
+                                                                    name="gambar" accept="image/*" class="d-none"
+                                                                    onchange="previewImage(event, {{ $pdk->id_user }})">
 
-                                                                    <!-- Label sebagai tombol upload -->
-                                                                    <label for="gambar{{ $pdk->id_user }}" class="m-0 p-0 d-flex align-items-center justify-content-center"
-                                                                        style="cursor: pointer; width: 100%; height: 100%;">
+                                                                <!-- Label sebagai tombol upload -->
+                                                                <label for="gambar{{ $pdk->id_user }}"
+                                                                    class="m-0 p-0 d-flex align-items-center justify-content-center"
+                                                                    style="cursor: pointer; width: 100%; height: 100%;">
 
-                                                                        <!-- Gambar Profil -->
-                                                                        <img id="previews{{ $pdk->id_user }}"
-                                                                            src="{{ asset($pdk->gambar ?? 'https://via.placeholder.com/150') }}"
-                                                                            alt="Foto Profil"
-                                                                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transition: 0.3s ease-in-out;">
-                                                                    </label>
-                                                                </div>
+                                                                    <!-- Gambar Profil -->
+                                                                    <img id="previews{{ $pdk->id_user }}"
+                                                                        src="{{ asset($pdk->gambar ?? 'https://via.placeholder.com/150') }}"
+                                                                        alt="Foto Profil"
+                                                                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transition: 0.3s ease-in-out;">
+                                                                </label>
                                                             </div>
+                                                        </div>
 
 
                                                         <!-- Input Fields -->
@@ -201,8 +203,9 @@
 
                                                         <div class="mb-3">
                                                             <label for="status" class="form-label">Status</label><br>
-                                                            <select class="form-select border-radius-lg text-sm w-100 px-3 py-2" id="status" name="status"
-                                                                required>
+                                                            <select
+                                                                class="form-select border-radius-lg text-sm w-100 px-3 py-2"
+                                                                id="status" name="status" required>
                                                                 <option value="admin"
                                                                     {{ $pdk->status == 'admin' ? 'selected' : '' }}>Admin
                                                                 </option>
@@ -213,7 +216,8 @@
                                                         </div>
 
                                                         <div class="mt-4">
-                                                            <button type="submit" class="btn btn-primary w-100 mt-3">Simpan</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary w-100 mt-3">Simpan</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -240,20 +244,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Form Tambah Pengguna -->
                     <form action="{{ route('pengguna.tambah') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <label for="gambar" class="form-label d-block text-center">Foto Profil</label>
                         <div class="d-flex justify-content-center">
                             <div class="position-relative"
                                 style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
-                                <input type="file" id="gambar" name="gambar" accept="image/*" class="d-none"
-                                    onchange="previewImageadd(event)">
-                                <label for="gambar" class="m-0 p-0"
+                                <label for="gambaradd" class="m-0 p-0"
                                     style="cursor: pointer; width: 100%; height: 100%;">
-                                    <img id="preview" src="https://via.placeholder.com/120" alt=""
+                                    <img id="preview-add" src="https://via.placeholder.com/120" alt=""
                                         style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%;">
                                 </label>
+                                <input type="file" id="gambaradd" name="gambar" accept="image/*" class="d-none"
+                                    onchange="previewAdd()">
                             </div>
                         </div>
                         <label for="namalengkap" class="form-label">Nama Lengkap</label><br>
@@ -308,14 +311,20 @@
         </div>
     </div>
     <script>
-        function previewImageadd(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            reader.onload = function() {
-                var img = document.getElementById('preview');
-                img.src = reader.result;
+        function previewAdd() {
+            const input = document.getElementById('gambaradd');
+            const preview = document.getElementById('preview-add');
+
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "#";
             }
-            reader.readAsDataURL(input.files[0]);
         }
 
         function togglePasswordadd() {
@@ -335,21 +344,21 @@
     </script>
     <script>
         function previewImage(event, id_user) {
-    let input = event.target;
-    let preview = document.getElementById('previews' + id_user);
+            let input = event.target;
+            let preview = document.getElementById('previews' + id_user);
 
-    if (input.files && input.files[0]) {
-        let reader = new FileReader();
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
 
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.transform = "scale(1.1)"; // Efek kecil saat diubah
-            setTimeout(() => preview.style.transform = "scale(1)", 200);
-        };
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.transform = "scale(1.1)"; // Efek kecil saat diubah
+                    setTimeout(() => preview.style.transform = "scale(1)", 200);
+                };
 
-        reader.readAsDataURL(input.files[0]);
-    }
-}
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
         function togglePassword(id_user) {
             let passwordField = document.getElementById('password' + id_user);

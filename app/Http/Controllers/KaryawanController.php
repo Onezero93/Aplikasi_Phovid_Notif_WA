@@ -13,14 +13,14 @@ class KaryawanController extends Controller
 {
     $user = Auth::user();
 
-    // Cek apakah user adalah karyawan
-    if ($user->statuspemesanan === 'karyawan') {
+    if ($user->status === 'karyawan') {
+        // Menampilkan tugas hanya untuk karyawan login
         $tugas = Pemesanan::where('id_user', $user->id_user)
                           ->where('statuspemesanan', 'Setujui')
                           ->with('jasa')
                           ->get();
     } else {
-        // Kalau admin, bisa lihat semua yang Setujui
+        // Admin bisa melihat semua tugas
         $tugas = Pemesanan::where('statuspemesanan', 'Setujui')
                           ->with('jasa')
                           ->get();
