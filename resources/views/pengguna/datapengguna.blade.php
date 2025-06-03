@@ -272,11 +272,11 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
-                                <input type="password" class="border-radius-lg text-sm w-100 px-3 py-2" id="password"
-                                    name="password" placeholder="Password" required>
+                                <input type="password" class="border-radius-lg text-sm w-100 px-3 py-2"
+                                    id="passwordInput" name="password" placeholder="Password" required>
                                 <span class="input-group-text border-start-0 px-3" onclick="togglePasswordadd()"
                                     style="cursor: pointer;">
-                                    <i id="eyeIcon" class="fas fa-eye"></i>
+                                    <i id="togglePassword" class="fas fa-eye"></i>
                                 </span>
                             </div>
                         </div>
@@ -327,20 +327,19 @@
             }
         }
 
-        function togglePasswordadd() {
-            var passwordInput = document.getElementById("password");
-            var eyeIcon = document.getElementById("eyeIcon");
+        document.addEventListener("DOMContentLoaded", function() {
+            const togglePassword = document.querySelector("#togglePassword");
+            const passwordInput = document.querySelector("#passwordInput");
 
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye");
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener("click", function() {
+                    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                    passwordInput.setAttribute("type", type);
+                    this.classList.toggle("fa-eye");
+                    this.classList.toggle("fa-eye-slash");
+                });
             }
-        }
+        });
     </script>
     <script>
         function previewImage(event, id_user) {
