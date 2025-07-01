@@ -52,7 +52,8 @@
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Aplikasi Jasa FotoGrafer And VidioGrafer</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Aplikasi Jasa
+                            FotoGrafer And VidioGrafer</li>
                     </ol>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -92,7 +93,8 @@
                             <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
                                 aria-labelledby="dropdownUser">
                                 <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="#ubahProfil" data-bs-toggle="offcanvas">
+                                    <a class="dropdown-item border-radius-md" href="#ubahProfil"
+                                        data-bs-toggle="offcanvas">
                                         <i class="material-symbols-rounded me-2">person</i> Profil Saya
                                     </a>
                                 </li>
@@ -113,63 +115,65 @@
             </div>
         </nav>
         <!-- Offcanvas Ubah Profil -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="ubahProfil" aria-labelledby="ubahProfilLabel" data-bs-backdrop="static">
-    <div class="offcanvas-header">
-        <h5 id="ubahProfilLabel">Ubah Profil</h5>
-        <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
-        <i class="fas fa-times"></i>
-    </button>
-    </div>
-    <div class="offcanvas-body">
-        <form action="{{ route('profil.perbarui') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <label for="gambar" class="form-label d-block text-center">Foto Profil</label>
-            <div class="d-flex justify-content-center mb-3">
-                <div class="position-relative"
-                    style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
-                    <input type="file" id="gambar" name="gambar" accept="image/*" class="d-none"
-                        onchange="previewImageUbah(event)">
-                    <label for="gambar" class="m-0 p-0" style="cursor: pointer; width: 100%; height: 100%;">
-                        <img id="previewUbah"
-                            src="{{ asset(auth()->user()->gambar ?? 'https://via.placeholder.com/120') }}"
-                            alt="Foto Profil"
-                            style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%;">
-                    </label>
-                </div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="ubahProfil" aria-labelledby="ubahProfilLabel"
+            data-bs-backdrop="static">
+            <div class="offcanvas-header">
+                <h5 id="ubahProfilLabel">Ubah Profil</h5>
+                <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+            <div class="offcanvas-body">
+                <form action="{{ route('profil.perbarui') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <label for="gambar" class="form-label d-block text-center">Foto Profil</label>
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="position-relative"
+                            style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
+                            <input type="file" id="gambar" name="gambar" accept="image/*" class="d-none"
+                                onchange="previewImageUbah(event)">
+                            <label for="gambar" class="m-0 p-0"
+                                style="cursor: pointer; width: 100%; height: 100%;">
+                                <img id="previewUbah"
+                                    src="{{ asset(auth()->user()->gambar ?? 'https://via.placeholder.com/120') }}"
+                                    alt="Foto Profil"
+                                    style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%;">
+                            </label>
+                        </div>
+                    </div>
 
-            <label for="namalengkap" class="form-label">Nama Lengkap</label>
-            <input type="text" class="form-control mb-3" id="namalengkap"
-                name="namalengkap" value="{{ auth()->user()->namalengkap }}" required>
+                    <label for="namalengkap" class="form-label">Nama Lengkap</label>
+                    <input type="text" class="form-control mb-3" id="namalengkap" name="namalengkap"
+                        value="{{ auth()->user()->namalengkap }}" required>
 
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control mb-3" id="username"
-                name="username" value="{{ auth()->user()->username }}" required>
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control mb-3" id="username" name="username"
+                        value="{{ auth()->user()->username }}" required>
 
-            <label for="password" class="form-label">Password Baru</label>
-            <div class="input-group mb-3">
-                <input type="password" class="form-control" id="password"
-                    name="password" placeholder="Kosongkan jika tidak ingin mengganti">
-                <span class="input-group-text" onclick="togglePasswordUbah()" style="cursor: pointer;">
-                    <i id="eyeIconUbah" class="fas fa-eye"></i>
-                </span>
+                    <label for="password" class="form-label">Password Baru</label>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Kosongkan jika tidak ingin mengganti">
+                        <span class="input-group-text" onclick="togglePasswordUbah()" style="cursor: pointer;">
+                            <i id="eyeIconUbah" class="fas fa-eye"></i>
+                        </span>
+                    </div>
+
+                    <label for="nomortelepon" class="form-label">Nomor Telepon</label>
+                    <input type="text" class="form-control mb-3" id="nomortelepon" name="nomortelepon"
+                        value="{{ auth()->user()->nomortelepon }}">
+
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <textarea class="form-control mb-3" id="alamat" name="alamat" rows="3">{{ auth()->user()->alamat }}</textarea>
+
+                    <label for="status" class="form-label">Status</label>
+                    <input type="text" class="form-control mb-3" id="status" name="status"
+                        value="{{ auth()->user()->status }}" readonly>
+
+                    <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
+                </form>
             </div>
-
-            <label for="nomortelepon" class="form-label">Nomor Telepon</label>
-            <input type="text" class="form-control mb-3" id="nomortelepon"
-                name="nomortelepon" value="{{ auth()->user()->nomortelepon }}">
-
-            <label for="alamat" class="form-label">Alamat</label>
-            <textarea class="form-control mb-3" id="alamat" name="alamat" rows="3">{{ auth()->user()->alamat }}</textarea>
-
-            <label for="status" class="form-label">Status</label>
-            <input type="text" class="form-control mb-3" id="status"
-                name="status" value="{{ auth()->user()->status }}" readonly>
-
-            <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
-        </form>
-    </div>
-</div>
+        </div>
 
         <!-- End Navbar -->
         <div class="container-fluid py-2">
@@ -188,31 +192,29 @@
     <script>
         //untuk spiner
         function togglePasswordUbah() {
-        const input = document.getElementById("password");
-        const icon = document.getElementById("eyeIconUbah");
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-        } else {
-            input.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
+            const input = document.getElementById("password");
+            const icon = document.getElementById("eyeIconUbah");
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
         }
-    }
 
-    function previewImageUbah(event) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            document.getElementById('previewUbah').src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
+        function previewImageUbah(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById('previewUbah').src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
         window.addEventListener("load", function() {
             document.getElementById("preloader").style.display = "none";
         });
-
-
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;

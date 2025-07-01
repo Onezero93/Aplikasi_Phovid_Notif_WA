@@ -189,6 +189,12 @@
                 jumlahDP.addEventListener("input", function() {
                     const dp = parseFloat(jumlahDP.value) || 0;
                     sisaPembayaran.value = harga - dp;
+
+                    if (dp > harga) {
+                        alert("Jumlah DP tidak boleh lebih dari total harga.");
+                        jumlahDP.value = "";
+                        sisaPembayaran.value = harga;
+                    }
                 });
                 // Pastikan form dimulai dalam keadaan default
                 updateVisibility();
@@ -406,27 +412,27 @@
                 });
             });
 
-            document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("pesanForm");
-        const btnKirim = document.getElementById("btnKirimPesanan");
+            document.addEventListener("DOMContentLoaded", function() {
+                const form = document.getElementById("pesanForm");
+                const btnKirim = document.getElementById("btnKirimPesanan");
 
-        btnKirim.addEventListener("click", function (e) {
-            e.preventDefault(); // Cegah submit langsung
+                btnKirim.addEventListener("click", function(e) {
+                    e.preventDefault(); // Cegah submit langsung
 
-            Swal.fire({
-                title: 'Kirim Pesanan?',
-                text: "Pastikan data sudah benar.",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, kirim!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // Submit manual setelah konfirmasi
-                }
+                    Swal.fire({
+                        title: 'Kirim Pesanan?',
+                        text: "Pastikan data sudah benar.",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, kirim!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // Submit manual setelah konfirmasi
+                        }
+                    });
+                });
             });
-        });
-    });
         </script>
     @endsection

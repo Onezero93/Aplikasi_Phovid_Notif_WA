@@ -15,14 +15,25 @@ class LoginController extends Controller
     //validaasi login
     public function login(Request $request)
     {
-        if(Auth::attempt($request->only('username','password'))){
-            if( Auth::user()->level == 'admin'){
-                return redirect('/dashboard')->with('success', 'Success Login As Admin!');
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            $user = Auth::user();
+
+            if ($user->status === 'admin') {
+                return redirect()->route('dashboard');
+            } elseif ($user->status === 'karyawan') {
+                return redirect()->route('dashboard');
+            } else {
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'Status tidak dikenali.');
             }
-            return redirect('/dashboard')->with('success', 'Succes Login As Karyawan!');
         }
-        return redirect()->back()->withErrors('Username / Password is false');
-        // return redirect('/');
+
+        return redirect()->route('login')->with('error', 'Username atau password salah.');
     }
 
     //keluar akses
