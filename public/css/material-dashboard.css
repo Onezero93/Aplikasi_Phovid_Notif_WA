@@ -29191,5 +29191,28 @@ pre[class*=language-] {
     z-index: 1040 !important; /* Pastikan sidebar tetap berada di bawah modal */
 }
 
+.dropdown-btn-custom {
+    padding: 8px 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+    border-radius: 6px;
+    background-color: #6c757d;
+    color: #fff;
+    display: block;
+    text-align: center;
+}
+
+.dropdown-btn-custom:hover {
+    background-color: #5a6268;
+}
+
+.fullscreen-offcanvas {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
 
 /*# sourceMappingURL=dashboard-free.css.map */

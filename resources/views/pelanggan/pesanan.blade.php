@@ -18,14 +18,13 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="namapelanggan" class="form-label">Nama Pelanggan</label>
-                            <input type="text" class="border-radius-lg text-sm px-3 py-2 w-100" id="namapelanggan"
-                                name="namapelanggan" placeholder="Masukkan nama pelanggan" required>
+                            <input type="text" class="border-radius-lg text-sm px-3 py-2 w-100" id="namapelanggan" value="{{ Auth::user()->namalengkap }}" readonly>
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label for="nomorwa" class="form-label">Nomor WhatsApp</label>
                             <input type="number" class="border-radius-lg text-sm px-3 py-2 w-100" id="nomorwa"
-                                name="nomorwa" placeholder="Masukkan nomor WhatsApp" required>
+                            value="{{ Auth::user()->nomortelepon }}" readonly>
                         </div>
 
                         <div class="col-md-4 mb-3">
@@ -36,20 +35,19 @@
                     </div>
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
-                        <textarea class="border-radius-lg text-sm w-100 px-3 py-2" id="alamat" name="alamat"
-                            placeholder="Masukkan alamat lengkap" required></textarea>
+                        <textarea class="border-radius-lg text-sm w-100 px-3 py-2" id="alamat" name="alamat" required>{{ Auth::user()->alamat }}</textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Tipe Pembayaran</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" id="dp" name="tipepembayaran"
-                                    value="DP" required>
+                                    value="dp" required>
                                 <label class="form-check-label" for="dp">Down Payment (DP)</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" id="lunas" name="tipepembayaran"
-                                    value="Kontan" required>
+                                    value="kontan" required>
                                 <label class="form-check-label" for="lunas">Kontan</label>
                             </div>
                         </div>
@@ -99,6 +97,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success" id="btnKirimPesanan">Kirim Pesanan</button>
+                    {{-- <button type="submit" class="btn btn-success">Kirim Langsung</button> --}}
                 </form>
                 <!-- Modal Konfirmasi -->
                 <div class="modal fade" id="modalKonfirmasi" tabindex="-1" aria-labelledby="modalKonfirmasiLabel"

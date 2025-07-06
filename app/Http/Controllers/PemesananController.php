@@ -47,44 +47,53 @@ class PemesananController extends Controller
 
 public function kirimWaAjax(Request $request)
 {
-    $order = Pemesanan::findOrFail($request->id);
+    $order = Pemesanan::with(['jasa', 'pelanggan', 'karyawan'])->findOrFail($request->id);
 
-    $pesan = "*Konfirmasi Pemesanan*\n".
-             "Halo *{$order->namapelanggan}*,\n".
-             "Pemesanan Anda untuk jasa *" . ($order->jasa->namajasa ?? '-') . "* status *{$order->statuspemesanan}*.\n".
-             "Jadwal: {$order->jadwalpemotretan}\n".
-             "Total: Rp" . number_format($order->totalharga, 0, ',', '.') . "\n\n".
-             "Terima kasih telah menggunakan layanan kami!";
+    // Pastikan nomor WhatsApp pelanggan diawali 62
+    $nomorPelanggan = $order->pelanggan->nomortelepon;
+    if (str_starts_with($nomorPelanggan, '0')) {
+        $nomorPelanggan = '62' . substr($nomorPelanggan, 1);
+    }
+
+    // Pesan untuk pelanggan
+    $pesan = "*📸 Konfirmasi Pemesanan*\n" .
+             "Halo *{$order->pelanggan->namalengkap}*,\n" .
+             "Pemesanan Anda untuk jasa *" . ($order->jasa->namajasa ?? '-') . "* telah *{$order->statuspemesanan}*.\n" .
+             "🗓 Jadwal: {$order->jadwalpemotretan}\n" .
+             "💰 Total: Rp" . number_format($order->totalharga, 0, ',', '.') . "\n\n" .
+             "Terima kasih telah menggunakan layanan kami 🙏";
 
     // Kirim ke pelanggan
     Http::withOptions(['verify' => false])->withHeaders([
         'Authorization' => '9fd5BVdFtu6m4tYmHYMQ'
     ])->post('https://api.fonnte.com/send', [
-        'target' => $order->nomorwa,
+        'target' => $nomorPelanggan,
         'message' => $pesan,
-        'countryCode' => '62'
     ]);
 
-    // Kirim ke karyawan (jika user ada dan punya nomor)
-    if ($order->user && $order->user->nomortelepon) {
-        $pesanKaryawan = "*Notifikasi Pemesanan Masuk*\n".
-                         "Pelanggan: *{$order->namapelanggan}*\n".
-                         "Jasa: *" . ($order->jasa->namajasa ?? '-') . "*\n".
-                         "Jadwal: {$order->jadwalpemotretan}\n".
+    // Kirim ke karyawan jika ada
+    if ($order->karyawan && $order->karyawan->nomortelepon) {
+        $nomorKaryawan = $order->karyawan->nomortelepon;
+        if (str_starts_with($nomorKaryawan, '0')) {
+            $nomorKaryawan = '62' . substr($nomorKaryawan, 1);
+        }
+
+        $pesanKaryawan = "*📥 Notifikasi Pemesanan Masuk*\n" .
+                         "Pelanggan: *{$order->pelanggan->namalengkap}*\n" .
+                         "Jasa: *" . ($order->jasa->namajasa ?? '-') . "*\n" .
+                         "Jadwal: {$order->jadwalpemotretan}\n" .
                          "Status: *{$order->statuspemesanan}*";
 
         Http::withOptions(['verify' => false])->withHeaders([
             'Authorization' => '9fd5BVdFtu6m4tYmHYMQ'
         ])->post('https://api.fonnte.com/send', [
-            'target' => $order->user->nomortelepon,
+            'target' => $nomorKaryawan,
             'message' => $pesanKaryawan,
-            'countryCode' => '62'
         ]);
     }
 
     return response()->json(['success' => true]);
 }
-
 
 
 

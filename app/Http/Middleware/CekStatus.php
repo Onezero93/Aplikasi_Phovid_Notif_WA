@@ -14,13 +14,17 @@ class CekStatus
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,$statuss): Response
+   public function handle($request, Closure $next, ...$roles)
     {
-        $user = Auth::user();
-
-        if ($user->status !== $statuss && $user->status !== 'admin') {
-            return redirect('/login'); // Redirect to home or a "No Access" page
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
-        return $next($request);
+
+        // Cek berdasarkan field `status` di model User
+        if (in_array(Auth::user()->status, $roles)) {
+            return $next($request);
+        }
+
+        return abort(403, 'Akses ditolak.');
     }
 }

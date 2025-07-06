@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
+
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -37,6 +38,66 @@
             @include('layoutpelanggan.navbar')
         </nav>
         <!-- End Navbar -->
+        {{-- pengaturan --}}
+        <div class="offcanvas offcanvas-top fullscreen-offcanvas" tabindex="-1" id="offcanvasPengaturan"
+            aria-labelledby="offcanvasPengaturanLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasPengaturanLabel">Pengaturan Akun</h5>
+                <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="offcanvas-body">
+                <form action="{{ route('profil.perbarui') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3 text-center">
+                        <label for="gambarInput" style="cursor: pointer; display: inline-block;">
+                            <img id="previewImage" src="{{ asset(Auth::user()->gambar ?? 'fotos/default.png') }}"
+                                alt="Foto Profil" class="rounded-circle"
+                                style="width: 100px; height: 100px; object-fit: cover; border: 2px solid #ccc;">
+                        </label>
+                        <input type="file" name="gambar" id="gambarInput" class="form-control d-none"
+                            onchange="previewFoto(this)">
+                        <div class="mt-2">
+                            <small class="form-text text-muted">Klik gambar untuk mengganti foto</small>
+                        </div>
+                    </div>
+
+                    @auth
+                        <div class="mb-3">
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="namalengkap" class="border-radius-lg text-sm w-100 px-3 py-2"
+                                value="{{ old('namalengkap', Auth::user()->namalengkap) }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Username</label>
+                            <input type="text" name="username" class="border-radius-lg text-sm w-100 px-3 py-2"
+                                value="{{ old('username', Auth::user()->username) }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Password (kosongkan jika tidak diubah)</label>
+                            <input type="password" name="password" class="border-radius-lg text-sm w-100 px-3 py-2">
+                        </div>
+                        <div class="mb-3">
+                            <label>Alamat</label>
+                            <textarea name="alamat" rows="3" class="border-radius-lg text-sm w-100 px-3 py-2">{{ old('alamat', Auth::user()->alamat) }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Nomor Telepon</label>
+                            <input type="text" name="nomortelepon" class="border-radius-lg text-sm w-100 px-3 py-2"
+                                value="{{ old('nomortelepon', Auth::user()->nomortelepon) }}" required>
+                        </div>
+                    @endauth
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn bg-gradient-danger">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {{-- end pengaturan --}}
+
         <div class="container-fluid px-2 px-md-4" style="padding-top: 60px;">
             @yield('contentpelanggan')
         </div>
@@ -89,10 +150,24 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{ asset('js/material-dashboard.min.js?v=3.2.0') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         window.addEventListener("load", function() {
             document.getElementById("preloader").style.display = "none";
         });
+
+        function previewFoto(input) {
+            const file = input.files[0];
+            const previewImage = document.getElementById('previewImage');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     </script>
 
 </body>

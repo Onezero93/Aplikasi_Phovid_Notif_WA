@@ -3,12 +3,14 @@
     <div class="col-10 mx-auto">
         <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex align-items-center justify-content-between px-3">
+                <div
+                    class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex align-items-center justify-content-between px-3">
                     <h6 class="text-white text-capitalize m-0">Data Order</h6>
                     <form action="" method="GET" class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <div class="input-group input-group-outline">
                             <label class="form-label">Cari data...</label>
-                            <input type="text" name="search" class="form-control text-white" value="{{ request('search') }}">
+                            <input type="text" name="search" class="form-control text-white"
+                                value="{{ request('search') }}">
                         </div>
                     </form>
                 </div>
@@ -17,7 +19,8 @@
                         <table class="table align-items-center mb-0 table-hover">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Nama
                                         Pelanggan</th>
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">
@@ -50,11 +53,15 @@
                                 @foreach ($pemesanan as $order)
                                     <tr>
                                         <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $order->namapelanggan }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $order->pelanggan->namalengkap ?? '-' }}</p>
                                         </td>
+
                                         <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $order->nomorwa }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $order->pelanggan->nomortelepon ?? '-' }}</p>
                                         </td>
+
                                         <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $order->jasa->namajasa ?? '-' }}
@@ -69,11 +76,10 @@
                                             </div>
                                         </td>
 
-                                        <form action="{{ route('status.perbarui', $order->id_pemesanan) }}"
-                                            method="POST">
+                                        <form action="{{ route('status.perbarui', $order->id_pemesanan) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                        <td class="align-middle">
+                                            <td class="align-middle">
 
                                                 <select name="statuspemesanan" id="statusSelect-{{ $order->id }}"
                                                     class="text-center status-dropdown border-0 px-2 py-1 text-xs"
@@ -89,16 +95,18 @@
                                                         {{ $order->statuspemesanan == 'Proses' ? 'selected' : '' }}>Proses
                                                     </option>
                                                 </select>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <select name="id_user" class="form-select form-select-sm" onchange="this.form.submit()" aria-label="Select User"
-                                            style="border-radius: 0.5rem; appearance: none; font-size: 0.75rem;">
-                                                @foreach ($karyawan as $k)
-                                                    <option value="{{ $k->id_user }}" {{ $order->id_user == $k->id_user ? 'selected' : '' }}>
-                                                        {{ $k->namalengkap }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <select name="id_user" class="form-select form-select-sm"
+                                                    onchange="this.form.submit()" aria-label="Select User"
+                                                    style="border-radius: 0.5rem; appearance: none; font-size: 0.75rem;">
+                                                    @foreach ($karyawan as $k)
+                                                        <option value="{{ $k->id_user }}"
+                                                            {{ $order->id_user == $k->id_user ? 'selected' : '' }}>
+                                                            {{ $k->namalengkap }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </td>
                                         </form>
                                         <td class="align-middle text-center">
@@ -108,14 +116,12 @@
                                             </a> --}}
                                             <a href="javascript:void(0)"
                                                 class="btn btn-link text-success text-gradient p-1 m-0 kirim-wa"
-                                                title="Kirim ke WhatsApp customer"
-                                                data-id="{{ $order->id_pemesanan }}">
+                                                title="Kirim ke WhatsApp customer" data-id="{{ $order->id_pemesanan }}">
                                                 <i class="fab fa-whatsapp fs-5"></i>
                                             </a>
 
                                             <a href="#" class="btn btn-link text-primary p-1 m-0"
-                                            title="Detail Pemesanan"
-                                                data-bs-toggle="offcanvas"
+                                                title="Detail Pemesanan" data-bs-toggle="offcanvas"
                                                 data-bs-target="#detailOrder{{ $order->id_pemesanan }}">
                                                 <i class="material-symbols-rounded fs-5">article</i>
                                             </a>
@@ -123,7 +129,8 @@
                                                 id="detailOrder{{ $order->id_pemesanan }}"
                                                 aria-labelledby="detailLabel{{ $order->id_pemesanan }}">
                                                 <div class="offcanvas-header border-bottom">
-                                                    <h5 class="offcanvas-title" id="detailLabel{{ $order->id_pemesanan }}">Detail
+                                                    <h5 class="offcanvas-title" id="detailLabel{{ $order->id_pemesanan }}">
+                                                        Detail
                                                         Pemesanan</h5>
                                                 </div>
                                                 <div class="offcanvas-body px-4 py-3">
@@ -133,17 +140,17 @@
                                                         <div class="row mb-2">
                                                             <div class="col-6">
                                                                 <p class="mb-1"><strong>Nama Pelanggan</strong></p>
-                                                                <p>{{ $order->namapelanggan }}</p>
+                                                                <p>{{ $order->pelanggan->namalengkap ?? '-' }}</p>
                                                             </div>
                                                             <div class="col-6">
                                                                 <p class="mb-1"><strong>No. Telepon</strong></p>
-                                                                <p>{{ $order->nomorwa }}</p>
+                                                                <p>{{ $order->pelanggan->nomortelepon ?? '-' }}</p>
                                                             </div>
                                                         </div>
                                                         <div class="mb-2">
                                                             <p class="mb-1"><strong>Alamat</strong></p>
-                                                            <p class="mb-0" style="white-space: pre-line;">
-                                                                {{ $order->alamat }}</p>
+                                                            <p class="mb-0">
+                                                                {{ $order->pelanggan->alamat ?? '-' }}</p>
                                                         </div>
                                                         <div class="row mb-2">
                                                             <div class="col-6">
@@ -248,33 +255,31 @@
         });
 
         document.querySelectorAll('.kirim-wa').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        const id = this.getAttribute('data-id');
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
 
-        axios.post("{{ route('kirim.wa') }}", {
-                id: id
-            })
-            .then(function(response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Notifikasi Dikirim',
-                    text: 'Pesan WhatsApp berhasil dikirim!',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-            })
-            .catch(function(error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal Mengirim',
-                    text: 'Terjadi kesalahan saat mengirim pesan.',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
+                axios.post("{{ route('kirim.wa') }}", {
+                        id: id
+                    })
+                    .then(function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Notifikasi Dikirim',
+                            text: 'Pesan WhatsApp berhasil dikirim!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    })
+                    .catch(function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal Mengirim',
+                            text: 'Terjadi kesalahan saat mengirim pesan.',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    });
             });
-    });
-});
-
+        });
     </script>
-
 @endsection

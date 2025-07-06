@@ -52,8 +52,10 @@
                                         <td class="align-middle text-center text-sm">
                                             @if ($pdk->status == 'admin')
                                                 <span class="badge badge-sm bg-gradient-success">Admin</span>
-                                            @else
+                                                @elseif ($pdk->status == 'karyawan')
                                                 <span class="badge badge-sm bg-gradient-secondary">Karyawan</span>
+                                            @else
+                                                <span class="badge badge-sm bg-gradient-secondary">Tidak Ada Status</span>
                                             @endif
                                         </td>
                                         <td class="align-middle text-center">

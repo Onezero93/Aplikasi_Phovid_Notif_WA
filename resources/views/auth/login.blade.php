@@ -63,6 +63,10 @@
                       <div class="text-center">
                           <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">login</button>
                       </div>
+                      <p class="mt-4 text-sm text-center">
+                    Apakah Anda belum memiliki akun?
+                    <a href="{{route('registrasi')}}" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                  </p>
                   </form>
                 </div>
               </div>

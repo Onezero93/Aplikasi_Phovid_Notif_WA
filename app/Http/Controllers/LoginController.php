@@ -27,6 +27,8 @@ class LoginController extends Controller
                 return redirect()->route('dashboard');
             } elseif ($user->status === 'karyawan') {
                 return redirect()->route('dashboard');
+            } elseif ($user->status === 'pelanggan') {
+                return redirect()->route('jasa.jasahome');
             } else {
                 Auth::logout();
                 return redirect()->route('login')->with('error', 'Status tidak dikenali.');
@@ -37,14 +39,29 @@ class LoginController extends Controller
     }
 
     //keluar akses
-    public function logout(Request $request)
-    {
-        Auth::logout();
+    // public function logout(Request $request)
+    // {
+    //     Auth::logout();
 
-        $request->session()->invalidate();
+    //     $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+    //     $request->session()->regenerateToken();
 
-        return redirect('/login');
+    //     return redirect('/login');
+    // }
+     public function logout()
+{
+    // Simpan role sebelum logout
+    $role = Auth::user()->status ?? null;
+
+    Auth::logout();
+
+    // Cek role: jika pelanggan, arahkan ke halaman utama pelanggan
+    if ($role === 'pelanggan') {
+        return redirect()->route('jasa.jasa'); // ke route '/'
     }
+
+    // Default untuk admin dan lainnya
+    return redirect()->route('login');
+}
 }

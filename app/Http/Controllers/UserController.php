@@ -13,8 +13,15 @@ class UserController extends Controller
     //menampilkan data pengguna
     public function tampilData(Request $request)
     {
-        $pengguna = User::all();
+        $pengguna = User::whereIn('status', ['admin', 'karyawan'])->get();
+        $pelanggan = User::whereIn('status', [ 'pelanggan'])->get();
         return view('pengguna.datapengguna', compact('pengguna'));
+    }
+
+    public function tampilDataPelanggan(Request $request)
+    {
+        $pelanggan = User::whereIn('status', ['pelanggan'])->get();
+        return view('pengguna.datapelanggan', compact('pelanggan'));
     }
 
     //menambahkan data pengguna
@@ -44,7 +51,7 @@ class UserController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password), // Enkripsi password
             'alamat' => $request->alamat,
-            'nomortelepon' => $request->nomortelepon,
+            'nomortelepon' => '62' . ltrim($request->nomortelepon, '0'),
             'gambar' => $gambarPath,
             'status' => $request->status,
 
@@ -75,7 +82,7 @@ class UserController extends Controller
         }
 
         $user->alamat = $request->alamat;
-        $user->nomortelepon = $request->nomortelepon;
+        $user->nomortelepon = '62' . ltrim($request->nomortelepon, '0');
 
         // Cek jika ada gambar baru diunggah
         if ($request->hasFile('gambar')) {
@@ -114,7 +121,7 @@ class UserController extends Controller
     }
     public function perbaruiProfil(Request $request)
     {
-        $user = Auth::user();
+        $user = User::find(Auth::id());
 
         $request->validate([
             'namalengkap' => 'required|string|max:255',
@@ -133,7 +140,7 @@ class UserController extends Controller
         }
 
         $user->alamat = $request->alamat;
-        $user->nomortelepon = $request->nomortelepon;
+        $user->nomortelepon = '62' . ltrim($request->nomortelepon, '0');
 
         if ($request->hasFile('gambar')) {
             if (!empty($user->gambar) && file_exists(public_path($user->gambar))) {
@@ -146,6 +153,7 @@ class UserController extends Controller
             $user->gambar = 'fotos/' . $gambarName;
         }
 
+        
         $user->save();
 
         return redirect()->back()->with('success', 'Profil berhasil diperbarui!');

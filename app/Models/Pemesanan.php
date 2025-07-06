@@ -15,10 +15,8 @@ class Pemesanan extends Model
 
     protected $fillable = [
         'id_user',
-        'id_jasa', // Tambahkan id_jasa di sini
-        'namapelanggan',
-        'alamat',
-        'nomorwa',
+        'id_pelanggan',
+        'id_jasa',
         'jadwalpemotretan',
         'tipepembayaran',
         'metodepembayaran',
@@ -27,19 +25,22 @@ class Pemesanan extends Model
         'totalharga',
         'statuspemesanan',
         'gambarbuktipembayaran',
+        'gambarbuktipelunasan',
     ];
 
     public $timestamps = false;
+    public function karyawan()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
+    }
 
-    // Definisi relasi ke model Jasa
+    public function pelanggan()
+    {
+        return $this->belongsTo(User::class, 'id_pelanggan', 'id_user');
+    }
+
     public function jasa()
     {
         return $this->belongsTo(Jasa::class, 'id_jasa', 'id_jasa');
     }
-
-    public function user()
-{
-    return $this->belongsTo(User::class, 'id_user', 'id_user');
-}
-
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RegistrasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,8 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/log', [LoginController::class, 'login'])->name('login.store');
-
+Route::get('/register', [RegistrasiController::class, 'showRegisterForm'])->name('registrasi');
+Route::post('/register', [RegistrasiController::class, 'registrasi'])->name('registrasi.proses');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
@@ -36,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tambahdatapengguna', [UserController::class, 'tambahData'])->name('pengguna.tambah');
         Route::put('/perbaruipengguna/{id_user}', [UserController::class, 'perbaruiData'])->name('pengguna.perbarui');
         Route::delete('/hapuspengguna/{id_user}', [UserController::class, 'hapusData'])->name('pengguna.hapus');
+
+        //datapelanggan
+         Route::get('/datapelanggan', [UserController::class, 'tampilDataPelanggan'])->name('pengguna.datapelanggan');
 
         //jasa
         Route::get('/datajasa', [JasaController::class, 'tampilJasa'])->name('jasa.datajasa');
@@ -59,14 +64,26 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['cekstatus:karyawan'])->group(function () {
         Route::get('/karyawan/tugas', [KaryawanController::class, 'tugasKaryawan'])->name('karyawan.tugas');
     });
+
+    Route::middleware(['cekstatus:pelanggan'])->group(function () {
+        Route::get('/home', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasahome');
+        Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
+        Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');
+        // routes/web.php
+        Route::get('/riwayat', [PelangganController::class, 'riwayat'])->name('riwayat');
+        Route::post('/upload-pelunasan/{id}', [PelangganController::class, 'uploadPelunasan'])->name('upload.pelunasan');
+
+
+    });
+
 });
 
 
 
-Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasahome');
-Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
-Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');
+Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasa');
+// Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
+// Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');
 
 // Route::get('/p', function () {
-//     return view('dashboard.halamanutama');
+//     return view('auth.registrasi');
 // });
