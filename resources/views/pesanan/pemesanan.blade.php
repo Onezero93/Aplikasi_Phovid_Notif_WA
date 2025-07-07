@@ -199,6 +199,16 @@
                                                                 class="img-fluid rounded shadow-sm border"
                                                                 style="max-width: 300px;">
                                                         </div>
+                                                        @if ($order->tipepembayaran == 'dp')
+                                                            <p class="mb-2"><strong>Bukti Pembayaran:</strong></p>
+                                                            <div class="text-center">
+                                                                <img src="{{ $order->gambarbuktipelunasan ? asset('storage/' . $order->gambarbuktipelunasan) : asset('assets/img/team-2.jpg') }}"
+                                                                    alt="Bukti Pembayaran"
+                                                                    class="img-fluid rounded shadow-sm border"
+                                                                    style="max-width: 300px;">
+                                                            </div>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>

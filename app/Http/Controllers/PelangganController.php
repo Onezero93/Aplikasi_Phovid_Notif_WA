@@ -103,7 +103,7 @@ class PelangganController extends Controller
                 'message' => $pesanAdmin,
             ]);
 
-        return redirect()->route('jasa.jasahome')->with('success', 'Pesanan berhasil dibuat!');
+        return redirect()->route('riwayat')->with('success', 'Pesanan berhasil dibuat!');
     }
     public function riwayat()
     {
@@ -118,19 +118,23 @@ class PelangganController extends Controller
     }
 
     public function uploadPelunasan(Request $request, $id)
-    {
-        $request->validate([
-            'gambarbuktipelunasan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+{
+    $request->validate([
+        'gambarbuktipelunasan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
 
-        $pemesanan = Pemesanan::findOrFail($id);
+    $pemesanan = Pemesanan::findOrFail($id);
 
-        // Simpan file ke storage/app/public/bukti_pelunasan
-        $path = $request->file('gambarbuktipelunasan')->store('bukti_pelunasan', 'public');
+    // Simpan file ke storage/app/public/bukti_pelunasan
+    $path = $request->file('gambarbuktipelunasan')->store('bukti_pelunasan', 'public');
 
-        $pemesanan->gambarbuktipelunasan = $path;
-        $pemesanan->save();
+    // Simpan file dan atur nilai pembayaran
+    $pemesanan->gambarbuktipelunasan = $path;
+    $pemesanan->jumlahdp = 0;
+    $pemesanan->sisapembayaran = 0;
+    $pemesanan->save();
 
-        return back()->with('success', 'Bukti pelunasan berhasil diupload.');
-    }
+    return back()->with('success', 'Bukti pelunasan berhasil diupload.');
+}
+
 }

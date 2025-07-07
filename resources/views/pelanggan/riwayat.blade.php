@@ -32,8 +32,7 @@
                                                 {{ $p->metodepembayaran }}
                                             </div>
                                         </div>
-
-                                        @if (strtolower($p->tipepembayaran) === 'dp')
+                                        @if ($p->tipepembayaran == 'dp')
                                             <p class="mb-1"><strong>Jumlah DP:</strong> Rp
                                                 {{ number_format($p->jumlahdp, 0, ',', '.') }}</p>
                                             <p class="mb-1"><strong>Sisa Pembayaran:</strong> Rp
@@ -44,7 +43,7 @@
                                         <p class="mb-1">
                                             <strong>Status:</strong>
                                             <span
-                                                class="badge bg-{{ $p->statuspemesanan == 'proses' ? 'warning' : ($p->statuspemesanan == 'selesai' ? 'success' : 'secondary') }}">
+                                                class="badge {{ $p->statuspemesanan == 'Proses' ? 'bg-gradient-warning' : ($p->statuspemesanan == 'Setujui' ? 'bg-gradient-success' : 'bg-secondary') }}">
                                                 {{ ucfirst($p->statuspemesanan) }}
                                             </span>
                                         </p>
@@ -62,25 +61,35 @@
                                                     <p>-</p>
                                                 @endif
                                             </div>
-
-                                            @if (strtolower($p->tipepembayaran) === 'dp')
+                                            @if ($p->tipepembayaran == 'dp')
                                                 <div class="col-md-6">
                                                     <p class="mb-1"><strong>Bukti Pelunasan:</strong></p>
-                                                    @if ($p->gambarbuktipelunasan)
-                                                        <a href="{{ asset('storage/' . $p->gambarbuktipelunasan) }}"
-                                                            target="_blank">
-                                                            <img src="{{ asset('storage/' . $p->gambarbuktipelunasan) }}"
-                                                                alt="Bukti Pelunasan" class="img-fluid rounded mb-2"
-                                                                style="max-height: 150px;">
-                                                        </a>
-                                                    @else
-                                                        <p>-</p>
+                                                    @if ($p->statuspemesanan == 'Setujui')
+                                                        @if ($p->gambarbuktipelunasan)
+                                                            {{-- Gambar jika sudah upload --}}
+                                                            <a href="{{ asset('storage/' . $p->gambarbuktipelunasan) }}"
+                                                                target="_blank">
+                                                                <img src="{{ asset('storage/' . $p->gambarbuktipelunasan) }}"
+                                                                    alt="Bukti Pelunasan" class="img-fluid rounded mb-2"
+                                                                    style="max-height: 150px;">
+                                                            </a>
+                                                        @else
+                                                            {{-- Form upload langsung buka file picker saat tombol diklik --}}
+                                                            <form
+                                                                action="{{ route('upload.pelunasan', $p->id_pemesanan) }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <label class="btn btn-primary">
+                                                                    Upload Bukti Pelunasan
+                                                                    <input type="file" name="gambarbuktipelunasan"
+                                                                        onchange="this.form.submit()" hidden required>
+                                                                </label>
+                                                            </form>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             @endif
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -90,8 +99,4 @@
             </div>
         @endif
     </div>
-
-
-
-
 @endsection
