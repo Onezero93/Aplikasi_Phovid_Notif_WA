@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pemesanan;
 use App\Models\User;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -20,6 +21,8 @@ class DashboardController extends Controller
     $jumlahPelangganDisetujui = $data->count();
     $jumlahPelangganDibatalkan = Pemesanan::where('statuspemesanan', 'Batal')->count();
     $jumlahPelangganDiproses = Pemesanan::where('statuspemesanan', 'Proses')->count();
+    $jumlahPesananHariIni = Pemesanan::whereDate('jadwalpemotretan', Carbon::today())->count();
+
 
     // Total pendapatan (semua totalharga yang disetujui)
     $totalPendapatan = $data->sum('totalharga');
@@ -46,7 +49,8 @@ class DashboardController extends Controller
         'jumlahPelangganDiproses',
         'totalPendapatan',
         'semuadatapemesanan',
-        'semuadatakaryawan'
+        'semuadatakaryawan',
+        'jumlahPesananHariIni'
     ));
 }
 

@@ -17,6 +17,7 @@ class Jasa extends Model
      */
     protected $fillable = [
         'namajasa',
+        'kategori',
         'deskripsi',
         'harga',
         'gambar',

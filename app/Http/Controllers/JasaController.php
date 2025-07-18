@@ -17,6 +17,7 @@ class JasaController extends Controller
     public function tambahJasa(Request $request){
     $request->validate([
         'namajasa' => 'required|string|max:255',
+        'kategori' => 'required|string|max:100',
         'deskripsi' => 'required|string|max:255',
         'harga' => 'required|string|max:255',
         'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -38,6 +39,7 @@ class JasaController extends Controller
 
     Jasa::create([
         'namajasa' => $request->namajasa,
+        'kategori' => $request->kategori,
         'deskripsi' => $request->deskripsi,
         'harga' => $request->harga,
         'gambar' => $gambarJasa,
@@ -53,12 +55,11 @@ class JasaController extends Controller
     return view('jasa.detailjasa', compact('jasa'));
 }
 
-
-
 public function perbaruiJasa(Request $request, $id_jasa)
 {
     $request->validate([
         'namajasa' => 'required|string|max:255',
+        'kategori' => 'required|string|max:100',
         'deskripsi' => 'required|string|max:255',
         'harga' => 'required|string|max:255',
         'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -83,6 +84,7 @@ public function perbaruiJasa(Request $request, $id_jasa)
     // Perbarui data jasa
     $jasa->update([
         'namajasa' => $request->namajasa,
+        'kategori' => $request->kategori,
         'deskripsi' => $request->deskripsi,
         'harga' => $request->harga,
     ]);

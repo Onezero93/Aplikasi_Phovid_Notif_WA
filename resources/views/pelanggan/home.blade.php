@@ -11,13 +11,21 @@
         <div class="row">
             <div class="col-12 mt-4">
                 <div class="mb-5 ps-3">
-                    <h6 class="mb-1">Jasa</h6>
-                    <p class="text-sm">Architects design houses</p>
+                    <h6 class="mb-1">Jasa FOTO GRAFER AND VIDIO</h6>
                 </div>
+                <div class="mb-4 ps-3">
+                    <button class="btn btn-outline-primary btn-sm filter-btn active text-white"
+                        data-filter="all">All</button>
+                    @foreach ($kategoriList as $kategori)
+                        <button class="btn btn-outline-primary btn-sm filter-btn"
+                            data-filter="{{ strtoupper($kategori) }}">{{ ucfirst($kategori) }}</button>
+                    @endforeach
+                </div>
+
                 <div class="container pt-4">
                     <div class="row">
                         @foreach ($jasahome as $jsh)
-                            <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                            <div class="col-xl-3 col-md-6 mb-xl-0 mb-4 jasa-item" data-kategori="{{ strtoupper($jsh->kategori) }}">
                                 <div class="card card-blog card-plain bg-gradient-dark">
                                     <div class="card-header p-0 m-2">
                                         <a class="d-block shadow-xl border-radius-xl">
@@ -27,6 +35,8 @@
                                     </div>
                                     <div class="card-body p-3">
                                         <a href="javascript:;">
+                                            <p class="text-white text-sm mb-1">{{ $jsh->kategori }}</p>
+                                            <!-- Tambahkan ini -->
                                             <h5 class="text-white">{{ $jsh->namajasa }}</h5>
                                         </a>
                                         <p class="mb-4 text-sm">Rp {{ number_format($jsh->harga, 0, ',', '.') }}
@@ -60,7 +70,8 @@
                                                     <p><strong>Harga:</strong> Rp
                                                         {{ number_format($jsh->harga, 0, ',', '.') }}</p>
                                                     <p class="mb-1"><strong>Deskripsi</strong></p>
-                                                    <p class="text-muted" style="white-space: pre-line;">{{ $jsh->deskripsi ?? 'Tidak ada deskripsi.' }}</p>
+                                                    <p class="text-muted" style="white-space: pre-line;">
+                                                        {{ $jsh->deskripsi ?? 'Tidak ada deskripsi.' }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,4 +85,31 @@
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".filter-btn");
+        const jasaItems = document.querySelectorAll(".jasa-item");
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", function () {
+                const filter = btn.getAttribute("data-filter");
+
+                // Hapus active dari semua tombol
+                buttons.forEach(b => b.classList.remove("active", "text-white"));
+                btn.classList.add("active", "text-white");
+
+                // Tampilkan jasa sesuai filter
+                jasaItems.forEach(item => {
+                    const kategori = item.getAttribute("data-kategori");
+
+                    if (filter === "all" || kategori === filter) {
+                        item.style.display = "block";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+            });
+        });
+    });
+</script>
 @endsection

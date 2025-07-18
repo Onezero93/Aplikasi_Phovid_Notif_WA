@@ -15,7 +15,8 @@ class PelangganController extends Controller
     public function tampilJasaHome(Request $request)
     {
         $jasahome = Jasa::all();
-        return view('pelanggan.home', compact('jasahome'));
+        $kategoriList = Jasa::select('kategori')->whereNotNull('kategori')->distinct()->pluck('kategori');
+        return view('pelanggan.home', compact('jasahome','kategoriList'));
     }
 
     public function buatPesanan($id_jasa)

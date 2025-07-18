@@ -37,15 +37,14 @@
                                                 aria-labelledby="dropdownMenuButton{{ $js->id }}">
                                                 <li>
                                                     <button class="dropdown-item text-info" data-bs-toggle="offcanvas"
-                                                    data-bs-target="#sidebarDetail{{ $js->id_jasa }}">
+                                                        data-bs-target="#sidebarDetail{{ $js->id_jasa }}">
                                                         <i class="fas fa-eye"></i> Detail
                                                     </button>
                                                 </li>
 
                                                 <li>
-                                                    <button class="dropdown-item text-warning"
-                                                    data-bs-toggle="offcanvas"
-                                                    data-bs-target="#sidebarUpdate{{ $js->id_jasa }}">
+                                                    <button class="dropdown-item text-warning" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#sidebarUpdate{{ $js->id_jasa }}">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </button>
                                                 </li>
@@ -72,63 +71,109 @@
                                                     <form action="{{ route('jasa.hapus', $js->id_jasa) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger w-100 mt-3">Hapus</button>
+                                                        <button type="submit"
+                                                            class="btn btn-danger w-100 mt-3">Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>
                                             {{-- untuk edit --}}
-                                            <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarUpdate{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel"
+                                            <div class="offcanvas offcanvas-end" tabindex="-1"
+                                                id="sidebarUpdate{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel"
                                                 data-bs-backdrop="static" data-bs-keyboard="false">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="offcanvasLabel">Perbarui Jasa</h5>
-                                                    <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+                                                    <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas"
+                                                        aria-label="Close">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
                                                 <div class="offcanvas-body">
-                                                    <form action="{{ route('jasa.perbarui', $js->id_jasa) }}" method="POST" enctype="multipart/form-data">
+                                                    <form action="{{ route('jasa.perbarui', $js->id_jasa) }}"
+                                                        method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="mb-3 text-center">
-                                                            <label for="gambar{{ $js->id_jasa }}" class="form-label d-block">Gambar Jasa</label>
-                                                            <img src="{{ asset($js->gambar) }}" alt="Gambar Jasa" class="img-fluid mb-2" width="150" id="previewGambar{{ $js->id_jasa }}" style="cursor: pointer;">
-                                                            <input type="file" name="gambar" id="gambar{{ $js->id_jasa }}" class="form-control d-none" accept="image/*">
+                                                            <label for="gambar{{ $js->id_jasa }}"
+                                                                class="form-label d-block">Gambar Jasa</label>
+                                                            <img src="{{ asset($js->gambar) }}" alt="Gambar Jasa"
+                                                                class="img-fluid mb-2" width="150"
+                                                                id="previewGambar{{ $js->id_jasa }}"
+                                                                style="cursor: pointer;">
+                                                            <input type="file" name="gambar"
+                                                                id="gambar{{ $js->id_jasa }}" class="form-control d-none"
+                                                                accept="image/*">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="namajasa{{ $js->id_jasa }}" class="form-label">Nama Jasa</label>
-                                                            <input type="text" name="namajasa" id="namajasa{{ $js->id_jasa }}" class="border-radius-lg text-sm w-100 px-3 py-2" value="{{ $js->namajasa }}" required>
+                                                            <label for="namajasa{{ $js->id_jasa }}"
+                                                                class="form-label">Nama Jasa</label>
+                                                            <input type="text" name="namajasa"
+                                                                id="namajasa{{ $js->id_jasa }}"
+                                                                class="border-radius-lg text-sm w-100 px-3 py-2"
+                                                                value="{{ $js->namajasa }}" required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <select name="kategori"
+                                                                class="border-radius-lg text-sm w-100 px-3 py-2" required>
+                                                                <option value="STUDIO"
+                                                                    {{ $js->kategori == 'STUDIO' ? 'selected' : '' }}>
+                                                                    STUDIO</option>
+                                                                <option value="ENGAGEMENT"
+                                                                    {{ $js->kategori == 'ENGAGEMENT' ? 'selected' : '' }}>
+                                                                    ENGAGEMENT</option>
+                                                                <option value="WEDDING"
+                                                                    {{ $js->kategori == 'WEDDING' ? 'selected' : '' }}>
+                                                                    WEDDING</option>
+                                                                <option value="DRONE"
+                                                                    {{ $js->kategori == 'DRONE' ? 'selected' : '' }}>
+                                                                    DRONE</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="deskripsi{{ $js->id_jasa }}"
+                                                                class="form-label">Deskripsi</label>
+                                                            <textarea class="border-radius-lg text-sm w-100 px-3 py-2" id="deskripsi{{ $js->id_jasa }}" name="deskripsi"
+                                                                placeholder="Masukkan Deskripsi" rows="3" required>{{ $js->deskripsi }}</textarea>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="deskripsi{{ $js->id_jasa }}" class="form-label">Deskripsi</label>
-                                                            <textarea class="border-radius-lg text-sm w-100 px-3 py-2" id="deskripsi{{ $js->id_jasa }}" name="deskripsi" placeholder="Masukkan Deskripsi" rows="3" required>{{ $js->deskripsi }}</textarea>
+                                                            <label for="harga{{ $js->id_jasa }}"
+                                                                class="form-label">Harga</label>
+                                                            <input type="text" name="harga"
+                                                                id="harga{{ $js->id_jasa }}"
+                                                                class="border-radius-lg text-sm w-100 px-3 py-2"
+                                                                value="{{ $js->harga }}" required>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="harga{{ $js->id_jasa }}" class="form-label">Harga</label>
-                                                            <input type="text" name="harga" id="harga{{ $js->id_jasa }}" class="border-radius-lg text-sm w-100 px-3 py-2" value="{{ $js->harga }}" required>
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary w-100 mt-3">Perbarui</button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary w-100 mt-3">Perbarui</button>
                                                     </form>
                                                 </div>
                                             </div>
                                             {{-- untuk detail --}}
-                                            <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarDetail{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel"
+                                            <div class="offcanvas offcanvas-end" tabindex="-1"
+                                                id="sidebarDetail{{ $js->id_jasa }}" aria-labelledby="offcanvasLabel"
                                                 data-bs-backdrop="static" data-bs-keyboard="false">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="offcanvasLabel">Detail Jasa</h5>
-                                                    <button type="button" class="btn ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+                                                    <button type="button" class="btn ms-auto"
+                                                        data-bs-dismiss="offcanvas" aria-label="Close">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
                                                 <div class="offcanvas-body text-center">
                                                     <!-- Gambar Jasa -->
-                                                    <img src="{{ asset($js->gambar) }}" alt="Gambar Jasa" class="img-fluid shadow border-radius-lg mb-3" style="max-width: 300px;">
+                                                    <img src="{{ asset($js->gambar) }}" alt="Gambar Jasa"
+                                                        class="img-fluid shadow border-radius-lg mb-3"
+                                                        style="max-width: 300px;">
 
                                                     <!-- Nama Jasa -->
                                                     <h4 class="text-dark font-weight-bold">{{ $js->namajasa }}</h4>
 
                                                     <!-- Deskripsi & Harga -->
                                                     <div class="text-start mt-3">
-                                                        <p class="text-muted" style="white-space: pre-wrap;">{{ $js->deskripsi }}</p>
-                                                        <p class="text-success font-weight-bold text-center">Harga: Rp {{ number_format($js->harga, 0, ',', '.') }}</p>
+                                                        <p class="text-muted" style="white-space: pre-wrap;">
+                                                            {{ $js->deskripsi }}</p>
+                                                        <p class="text-success font-weight-bold text-center">Harga: Rp
+                                                            {{ number_format($js->harga, 0, ',', '.') }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,7 +202,7 @@
 
     <!-- Modal Tambah Jasa -->
     <div class="modal fade" id="tambahDataJasa" tabindex="-1" aria-labelledby="tambahJasaLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="false">
+        data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-scrollable"> <!-- Tambahkan class ini -->
             <div class="modal-content">
                 <div class="modal-header">
@@ -173,7 +218,8 @@
                         <div class="d-flex justify-content-center">
                             <div class="position-relative"
                                 style="width: 180px; height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
-                                <label for="gambaradd" class="m-0 p-0" style="cursor: pointer; width: 100%; height: 100%;">
+                                <label for="gambaradd" class="m-0 p-0"
+                                    style="cursor: pointer; width: 100%; height: 100%;">
                                     <img id="preview-add" src="https://via.placeholder.com/180x120" alt=""
                                         style="width: 100%; height: 100%; object-fit: cover; display: block;">
                                 </label>
@@ -184,7 +230,17 @@
                         <label for="namajasa" class="form-label">Nama Jasa</label><br>
                         <input type="text" class="border-radius-lg text-sm w-100 px-3 py-2" id="namajasa"
                             name="namajasa" placeholder="Nama Jasa" required>
-
+                        <div class="mb-3">
+                            <label for="kategori" class="form-label">Kategori</label><br>
+                            <select name="kategori" class="border-radius-lg text-sm w-100 px-3 py-2" id="kategori"
+                                required>
+                                <option value="">-- Pilih Kategori --</option>
+                                <option value="STUDIO">STUDIO</option>
+                                <option value="ENGAGEMENT">ENGAGEMENT</option>
+                                <option value="WEDDING">WEDDING</option>
+                                <option value="DRONE">DRONE</option>
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
                             <input type="text" class="border-radius-lg text-sm w-100 px-3 py-2" id="harga"
@@ -205,8 +261,6 @@
             </div>
         </div>
     </div>
-
-
     <script>
         // function previewImage(event) {
         //     var input = event.target;

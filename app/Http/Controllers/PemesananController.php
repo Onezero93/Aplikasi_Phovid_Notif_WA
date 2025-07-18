@@ -78,9 +78,10 @@ class PemesananController extends Controller
                 "Status Pembayaran: *{$order->statuspembayaran}*\n";
 
             // Tambahan jika tipe DP
-            if ($order->tipepembayaran === 'dp') {
+            if ($order->tipepembayaran === 'dp' && $order->statuspembayaran !== 'Lunas') {
                 $pesan .= "⚠️ *Mohon lunasi sebelum jadwal pemotretan*\n";
             }
+
 
             $pesan .= "\nTerima kasih telah menggunakan layanan kami 🙏";
 
