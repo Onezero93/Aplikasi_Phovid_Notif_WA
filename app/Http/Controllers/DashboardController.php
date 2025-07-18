@@ -11,7 +11,7 @@ class DashboardController extends Controller
     public function tampilData()
 {
 
-    $semuadatapemesanan = Pemesanan::with(['jasa', 'karyawan'])->get();
+    $semuadatapemesanan = Pemesanan::with(['jasa', 'karyawan', 'pelanggan'])->get();
     $semuadatakaryawan =  User::where('status', 'karyawan')->get();
     // Ambil data yang statusnya "Setujui"
     $data = Pemesanan::where('statuspemesanan', 'Setujui')->get();

@@ -81,9 +81,6 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('/', [PelangganController::class, 'tampilJasaHome'])->name('jasa.jasa');
-// Route::get('/pesanan/{id_jasa}', [PelangganController::class, 'buatPesanan'])->name('pesanan.jasa');
-// Route::post('/simpan-pesanan', [PelangganController::class, 'simpanPesanan'])->name('simpan.pesanan');
-
-// Route::get('/p', function () {
-//     return view('auth.registrasi');
-// });
+Route::get('/tentang', function () {
+    return view('pelanggan.tentang');
+});

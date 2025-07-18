@@ -49,7 +49,7 @@
                                         </p>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <p class="mb-1"><strong>Bukti Pembayaran DP:</strong></p>
+                                                <p class="mb-1"><strong>Bukti Pembayaran:</strong></p>
                                                 @if ($p->gambarbuktipembayaran)
                                                     <a href="{{ asset('storage/' . $p->gambarbuktipembayaran) }}"
                                                         target="_blank">

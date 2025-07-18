@@ -133,8 +133,9 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->namapelanggan }}</h6>
-                                                        <!-- hapus tanda "<" -->
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $item->pelanggan ? $item->pelanggan->namalengkap : '-' }}
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             </td>
@@ -162,7 +163,7 @@
                                                     </span> </span>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                {{ $item->user ? $item->user->namalengkap : '-' }}
+                                                {{ $item->karyawan ? $item->karyawan->namalengkap : '-' }}
                                             </td>
 
                                         </tr>
@@ -179,32 +180,35 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
-  <div class="card h-100">
-    <div class="card-header pb-0">
-      <h6>Data Karyawan</h6>
-      <p class="text-sm">
-        <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-        <span class="font-weight-bold">{{ $semuadatakaryawan->count() }} Karyawan</span>
-      </p>
-    </div>
-    <div class="card-body p-3">
-      <div class="timeline timeline-one-side">
-        @foreach($semuadatakaryawan as $karyawan)
-          <div class="timeline-block mb-3">
-            <span class="timeline-step">
-  <img src="{{ $karyawan->gambar ? asset($karyawan->gambar) : asset('assets/img/team-2.jpg') }}" alt="Foto Karyawan" style="width:30px; height:30px; border-radius:50%;">
-</span>
+                <div class="card h-100">
+                    <div class="card-header pb-0">
+                        <h6>Data Karyawan</h6>
+                        <p class="text-sm">
+                            <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                            <span class="font-weight-bold">{{ $semuadatakaryawan->count() }} Karyawan</span>
+                        </p>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="timeline timeline-one-side">
+                            @foreach ($semuadatakaryawan as $karyawan)
+                                <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                        <img src="{{ $karyawan->gambar ? asset($karyawan->gambar) : asset('assets/img/team-2.jpg') }}"
+                                            alt="Foto Karyawan" style="width:30px; height:30px; border-radius:50%;">
+                                    </span>
 
-            <div class="timeline-content">
-              <h6 class="text-dark text-sm font-weight-bold mb-0">{{ $karyawan->namalengkap }}</h6>
-              <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ $karyawan->nomortelepon }}</p>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">{{ $karyawan->namalengkap }}
+                                        </h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                                            {{ $karyawan->nomortelepon }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        @endforeach
-      </div>
-    </div>
-  </div>
-</div>
 
         </div>
         <footer class="footer py-4  ">

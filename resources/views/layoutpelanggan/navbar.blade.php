@@ -11,7 +11,7 @@
                 <a class="nav-link text-white" href="jasa.html">Riwayat Pesanan</a>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link text-white" href="tentang.html">Tentang</a>
+                <a class="nav-link text-white {{ request()->is('tentang') ? 'active bg-gradient-dark text-white' : '' }}" href="{{ url('/tentang') }}">Tentang</a>
             </li>
 
             <li class="nav-item">

@@ -67,18 +67,31 @@
                                                 {{ $order->jasa->namajasa ?? '-' }}
                                             </p>
                                         </td>
-                                        <td class="align-middle">
+                                        {{-- <td class="align-middle">
                                             <div class="d-flex justify-content-center">
                                                 <img src="{{ $order->gambarbuktipembayaran
                                                     ? asset('storage/' . $order->gambarbuktipembayaran)
                                                     : asset('assets/img/team-2.jpg') }}"
                                                     class="avatar avatar-sm border-radius-lg">
                                             </div>
-                                        </td>
+                                        </td> --}}
 
                                         <form action="{{ route('status.perbarui', $order->id_pemesanan) }}" method="POST">
                                             @csrf
                                             @method('PUT')
+                                            <td class="align-middle">
+                                                <select name="statuspembayaran" id="statusSelect-{{ $order->id }}"
+                                                    class="text-center status-dropdown border-0 px-2 py-1 text-xs"
+                                                    style="border-radius: 0.5rem; appearance: none; font-size: 0.75rem;"
+                                                    onchange="this.form.submit()">
+                                                    <option class="text-dark" value="Lunas"
+                                                        {{ $order->statuspembayaran == 'Lunas' ? 'selected' : '' }}>Lunas
+                                                    </option>
+                                                    <option class="text-dark" value="Belum Lunas"
+                                                        {{ $order->statuspembayaran == 'Belum Lunas' ? 'selected' : '' }}>Belum Lunas
+                                                    </option>
+                                                </select>
+                                            </td>
                                             <td class="align-middle">
 
                                                 <select name="statuspemesanan" id="statusSelect-{{ $order->id }}"
